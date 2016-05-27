@@ -75,6 +75,14 @@ void OnRender()
 {
 	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
+	
+	glTranslatef(-100.f, -100.f, 0.f);
+
+	glBegin(GL_TRIANGLES);
+		glVertex2i(-250, 0);
+		glVertex2i(250, 0);
+		glVertex2i(0, 250);
+	glEnd();
 
 	SDL_GL_SwapWindow(mainWindow);
 }
