@@ -77,7 +77,8 @@ void OnRender()
 	glClear(GL_COLOR_BUFFER_BIT);
 	
 	/*glTranslatef(-100.f, -100.f, 0.f);*/
-	glRotatef(45, 0.0f, 0.0f, 1.0f);
+	//glRotatef(45, 0.0f, 0.0f, 1.0f);
+	glScalef(1.0f, 1.0f, 1.f);
 
 	glBegin(GL_TRIANGLES);
 		glVertex2i(-250, 0);
