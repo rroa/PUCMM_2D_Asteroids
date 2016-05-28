@@ -75,9 +75,11 @@ void OnRender()
 {
 	glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 	glClear(GL_COLOR_BUFFER_BIT);
-	
-	/*glTranslatef(-100.f, -100.f, 0.f);*/
-	//glRotatef(45, 0.0f, 0.0f, 1.0f);
+
+	// This should go always before rotations
+	// Don't believe me? Try it!
+	glTranslatef(-100.f, -100.f, 0.f);
+	glRotatef(45, 0.0f, 0.0f, 1.0f);
 	glScalef(1.0f, 1.0f, 1.f);
 
 	glBegin(GL_TRIANGLES);
