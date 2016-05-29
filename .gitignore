@@ -11,16 +11,16 @@
 *.userprefs
 
 # Build results
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleases/
-x64/
-x86/
-bld/
-[Bb]in/
-[Oo]bj/
-[Ll]og/
+Asteroids/[Dd]ebug/
+Asteroids/[Dd]ebugPublic/
+Asteroids/[Rr]elease/
+Asteroids/[Rr]eleases/
+Asteroids/x64/
+Asteroids/x86/
+Asteroids/bld/
+Asteroids/[Bb]in/
+Asteroids/[Oo]bj/
+Asteroids/[Ll]og/
 
 # Visual Studio 2015 cache/options directory
 .vs/
@@ -250,3 +250,5 @@ paket-files/
 # JetBrains Rider
 .idea/
 *.sln.iml
+
+!Externals/
