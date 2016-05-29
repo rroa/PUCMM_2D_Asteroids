@@ -1,42 +1,32 @@
 #include "Game.hpp"
-
 #include <iostream>
 
-//
+// OpenGL includes
 #include <GL\glew.h>
-
-//
 #include <SDL2\SDL_opengl.h>
 
-namespace Asteroids
+namespace Engine
 {
-	Game::Game(const std::string& title, const float width, const float height)
-		: m_title(title),
-		m_width(width),
-		m_height(height)
+	Game::Game(const std::string& title, const int width, const int height)
+		:	m_title ( title  ),
+			m_width ( width  ),
+			m_height( height )
 	{
 		m_mainWindow = nullptr;
-		m_state = GameState::RUNNING;
+		m_state = GameState::STARTING;
 	}
 
 	void Game::OnExecute()
 	{
-		if (!OnInit())
-		{
-			std::cout << "Game Init error!\n";
-			return;
-		}
-
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
 		{
-			//double startTime = GetAbsoluteTimeSeconds();
-
+			// Input polling
+			//
 			while (SDL_PollEvent(&event))
-			{
-				//OnEvent(&event);
-			}
+			{}
 
+			//
 			OnUpdate();
 			OnRender();
 		}
@@ -49,12 +39,17 @@ namespace Asteroids
 		bool success = SDLInit() && GlewInit();
 		if (!success)
 		{
+			m_state = GameState::START_FAILED;
 			return false;
 		}
 
 		// Setup the viewport
 		//
 		SetupViewport();
+
+		// Change game state
+		//
+		m_state = GameState::RUNNING;
 
 		return true;
 	}
@@ -89,12 +84,14 @@ namespace Asteroids
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-		m_mainWindow = SDL_CreateWindow("Asteroids - OpenGL",
+		m_mainWindow = SDL_CreateWindow(
+			m_title.c_str(),
 			SDL_WINDOWPOS_CENTERED,
 			SDL_WINDOWPOS_CENTERED,
 			m_width,
 			m_height,
-			SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
+			SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN
+		);
 
 		if (!m_mainWindow)
 		{
@@ -114,20 +111,26 @@ namespace Asteroids
 
 	void Game::SetupViewport()
 	{
-		// Defining ortho
+		// Defining ortho values
+		//
 		float halfWidth = m_width * 0.5f;
 		float halfHeight = m_height * 0.5f;
 
 		// Set viewport to match window
+		//
 		glViewport(0, 0, m_width, m_height);
 
 		// Set Mode to GL_PROJECTION
+		//
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
 
 		// Set projection MATRIX to ORTHO
+		//
 		glOrtho(-halfWidth, halfWidth, -halfHeight, halfHeight, -1, 1);
 
+		// Setting Mode to GL_MODELVIEW
+		//
 		glMatrixMode(GL_MODELVIEW);
 	}
 

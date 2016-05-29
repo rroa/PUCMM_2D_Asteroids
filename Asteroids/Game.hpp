@@ -1,8 +1,12 @@
 #pragma once
+
+#ifndef GAME_HPP
+#define GAME_HPP
+
 #include <string>
 #include <SDL2\SDL.h>
 
-namespace Asteroids
+namespace Engine
 {
 	class Game
 	{
@@ -14,16 +18,18 @@ namespace Asteroids
 		{
 			enum State
 			{
-				RUNNING = 1,
-				PAUSED = 2,
-				QUIT = 4
+				STARTING = 0,
+				START_FAILED = 1,
+				RUNNING = 2,
+				PAUSED = 4,
+				QUIT = 8
 			};
 		};
 
 		/* =============================================================
 		 * PUBLIC FUNCTIONS
 		 * ============================================================= */
-		Game				( const std::string& title, const float width, const float height );
+		Game				( const std::string& title, const int width, const int height );
 		void OnExecute		( );
 		bool OnInit			( );
 		void OnUpdate		( );
@@ -43,10 +49,11 @@ namespace Asteroids
 		* MEMBERS
 		* ============================================================= */
 		std::string			m_title;
-		float				m_width;
-		float				m_height;
+		int					m_width;
+		int					m_height;
 		SDL_Window*			m_mainWindow;
 		SDL_GLContext		m_context;
 		GameState::State	m_state;
 	};
 }
+#endif /* GAME_HPP */
