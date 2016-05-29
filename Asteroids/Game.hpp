@@ -17,11 +17,12 @@ namespace Engine
 		{
 			enum State
 			{
-				STARTING = 0,
-				START_FAILED = 1,
-				RUNNING = 2,
-				PAUSED = 4,
-				QUIT = 8
+				UNINITIALIZED = 0,
+				INIT_FAILED = 1,
+				INIT_SUCCESSFUL = 2,
+				RUNNING = 4,
+				PAUSED = 8,
+				QUIT = 16
 			};
 		};
 

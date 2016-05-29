@@ -13,11 +13,19 @@ namespace Engine
 			m_height( height )
 	{
 		m_mainWindow = nullptr;
-		m_state = GameState::STARTING;
+		m_state = GameState::UNINITIALIZED;
 	}
 
 	void Game::OnExecute()
 	{
+		if(m_state != GameState::INIT_SUCCESSFUL)
+		{ 
+			std::cerr << "Game INIT was not successful." << std::endl;
+			return;
+		}
+
+		m_state = GameState::RUNNING;
+
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
 		{
@@ -39,7 +47,7 @@ namespace Engine
 		bool success = SDLInit() && GlewInit();
 		if (!success)
 		{
-			m_state = GameState::START_FAILED;
+			m_state = GameState::INIT_FAILED;
 			return false;
 		}
 
@@ -49,7 +57,7 @@ namespace Engine
 
 		// Change game state
 		//
-		m_state = GameState::RUNNING;
+		m_state = GameState::INIT_SUCCESSFUL;
 
 		return true;
 	}
