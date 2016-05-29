@@ -10,7 +10,7 @@
 
 namespace Asteroids
 {
-	Game::Game(const std::string& title, const float width, const float height)
+	Game::Game(const std::string& title, const int width, const int height)
 		: m_title(title),
 		m_width(width),
 		m_height(height)

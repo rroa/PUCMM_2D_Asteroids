@@ -23,7 +23,7 @@ namespace Asteroids
 		/* =============================================================
 		 * PUBLIC FUNCTIONS
 		 * ============================================================= */
-		Game				( const std::string& title, const float width, const float height );
+		Game				( const std::string& title, const int width, const int height );
 		void OnExecute		( );
 		bool OnInit			( );
 		void OnUpdate		( );
@@ -43,8 +43,8 @@ namespace Asteroids
 		* MEMBERS
 		* ============================================================= */
 		std::string			m_title;
-		float				m_width;
-		float				m_height;
+		int				m_width;
+		int				m_height;
 		SDL_Window*			m_mainWindow;
 		SDL_GLContext		m_context;
 		GameState::State	m_state;
