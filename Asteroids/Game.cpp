@@ -1,11 +1,13 @@
+// Internal Deps
 #include "Game.hpp"
 
+// C++ STL
 #include <iostream>
 
-//
+// GLEW Deps
 #include <GL\glew.h>
 
-//
+// SDL Deps
 #include <SDL2\SDL_opengl.h>
 
 namespace Asteroids

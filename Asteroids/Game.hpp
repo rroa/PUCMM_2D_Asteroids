@@ -43,8 +43,8 @@ namespace Asteroids
 		* MEMBERS
 		* ============================================================= */
 		std::string			m_title;
-		int				m_width;
-		int				m_height;
+		int					m_width;
+		int					m_height;
 		SDL_Window*			m_mainWindow;
 		SDL_GLContext		m_context;
 		GameState::State	m_state;
