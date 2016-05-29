@@ -1,5 +1,4 @@
 #pragma once
-
 #ifndef GAME_HPP
 #define GAME_HPP
 
@@ -46,8 +45,8 @@ namespace Engine
 		void CleanupSDL		( );
 
 		/* =============================================================
-		* MEMBERS
-		* ============================================================= */
+		 * MEMBERS
+		 * ============================================================= */
 		std::string			m_title;
 		int					m_width;
 		int					m_height;
