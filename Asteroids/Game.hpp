@@ -3,7 +3,7 @@
 #define GAME_HPP
 
 #include <string>
-#include <SDL2\SDL.h>
+#include <SDL2/SDL.h>
 
 namespace Engine
 {
