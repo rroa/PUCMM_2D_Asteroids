@@ -253,3 +253,7 @@ paket-files/
 *.sln.iml
 
 !Externals/
+
+#Linux ignores
+**.o
+Asteroids/main
