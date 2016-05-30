@@ -21,6 +21,7 @@ Asteroids/bld/
 Asteroids/[Bb]in/
 Asteroids/[Oo]bj/
 Asteroids/[Ll]og/
+x64/Debug/*
 
 # Visual Studio 2015 cache/options directory
 .vs/
