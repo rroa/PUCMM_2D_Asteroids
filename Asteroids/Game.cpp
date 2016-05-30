@@ -10,7 +10,8 @@ namespace Engine
 	Game::Game(const std::string& title, const int width, const int height)
 		:	m_title ( title  ),
 			m_width ( width  ),
-			m_height( height )
+			m_height( height ),
+			m_context( nullptr )
 	{
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
