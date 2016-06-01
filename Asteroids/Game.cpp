@@ -22,6 +22,11 @@ namespace Engine
 		m_state = GameState::UNINITIALIZED;
 	}
 
+	Game::~Game()
+	{
+		CleanupSDL();
+	}
+
 	void Game::OnExecute()
 	{
 		if (m_state != GameState::INIT_SUCCESSFUL)
@@ -213,5 +218,16 @@ namespace Engine
 		SDL_DestroyWindow(m_mainWindow);
 
 		SDL_Quit();
+	}
+
+	void Game::OnExit()
+	{
+		// Exit main for loop
+		//
+		m_state = GameState::QUIT;
+
+		// Cleanup SDL pointers
+		//
+		CleanupSDL();
 	}
 }

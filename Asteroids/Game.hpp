@@ -33,6 +33,7 @@ namespace Engine
 		 * PUBLIC FUNCTIONS
 		 * ============================================================= */
 		Game				( const std::string& title, const int width, const int height );
+		~Game				( );
 		void OnExecute		( );
 		bool OnInit			( );
 		void OnUpdate		( );
@@ -47,6 +48,7 @@ namespace Engine
 		bool GlewInit		( );
 		void SetupViewport	( );
 		void CleanupSDL		( );
+		void OnExit			( );
 
 		/* =============================================================
 		 * MEMBERS
