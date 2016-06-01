@@ -2,8 +2,8 @@
 #include <iostream>
 
 // OpenGL includes
-#include <GL\glew.h>
-#include <SDL2\SDL_opengl.h>
+#include <GL/glew.h>
+#include <SDL2/SDL_opengl.h>
 
 namespace Engine
 {
