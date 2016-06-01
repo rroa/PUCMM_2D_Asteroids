@@ -2,12 +2,15 @@
 #ifndef GAME_HPP
 #define GAME_HPP
 
+// C++ STL
 #include <string>
-#include <SDL2\SDL.h>
+
+// Asteroids
+#include "SDLEvent.hpp"
 
 namespace Engine
 {
-	class Game
+	class Game : public SDLEvent
 	{
 	public:
 		/* =============================================================
@@ -44,8 +47,6 @@ namespace Engine
 		bool GlewInit		( );
 		void SetupViewport	( );
 		void CleanupSDL		( );
-		void HandleWindowEvent(SDL_Event* event);
-		void HandleKeyboardEvent(SDL_Event* event);
 
 		/* =============================================================
 		 * MEMBERS
