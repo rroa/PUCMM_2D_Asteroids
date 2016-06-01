@@ -5,6 +5,9 @@
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 
+//
+#include "Player.hpp"
+
 namespace Engine
 {
 	const float PI = 3.141592653f;
@@ -20,10 +23,12 @@ namespace Engine
 	{
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
+		m_player = new Asteroids::Player();
 	}
 
 	Game::~Game()
 	{
+		delete m_player;
 		CleanupSDL();
 	}
 
@@ -116,17 +121,9 @@ namespace Engine
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		glLoadIdentity();
-		glTranslatef(x, y, 0.0f);
-		glRotatef(angle, 0.0f, 0.0f, 1.0f);
-
-		glBegin(GL_LINE_LOOP);
-			glVertex2f(0.0f, 20.0f);
-			glVertex2f(12.0f, -10.0f);
-			glVertex2f(6.0f, -4.0f);
-			glVertex2f(-6.0f, -4.0f);
-			glVertex2f(-12.0f, -10.0f);
-		glEnd();
+		// Render player
+		//
+		m_player->Render();
 
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
@@ -218,6 +215,16 @@ namespace Engine
 		SDL_DestroyWindow(m_mainWindow);
 
 		SDL_Quit();
+	}
+
+	void Game::OnResize(int width, int height)
+	{
+		// TODO: Add resize functionality
+		//
+		m_width = width;
+		m_height = height;
+
+		SetupViewport();
 	}
 
 	void Game::OnExit()

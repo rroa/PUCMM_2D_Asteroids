@@ -7,6 +7,7 @@
 
 // Asteroids
 #include "SDLEvent.hpp"
+#include "Player.hpp"
 
 namespace Engine
 {
@@ -48,6 +49,7 @@ namespace Engine
 		bool GlewInit		( );
 		void SetupViewport	( );
 		void CleanupSDL		( );
+		void OnResize		( int width, int height );
 		void OnExit			( );
 
 		/* =============================================================
@@ -60,6 +62,7 @@ namespace Engine
 		SDL_GLContext		m_context;
 		GameState::State	m_state;
 		int					m_nUpdates;
+		Asteroids::Player*	m_player;
 	};
 }
 #endif /* GAME_HPP */

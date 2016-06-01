@@ -17,6 +17,12 @@
     <Filter Include="Game">
       <UniqueIdentifier>{0f61f352-0504-4366-8b0d-2f3b86e56695}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game\Header Files">
+      <UniqueIdentifier>{3841fa49-bffa-4a21-93a6-2242f8f1eac4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game\Source Files">
+      <UniqueIdentifier>{0a9b5821-c2df-4cc3-b5f5-77e14ee0a647}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -26,12 +32,30 @@
     <ClCompile Include="SDLEvent.cpp">
       <Filter>Core\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Entity.cpp">
+      <Filter>Game\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Game\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Core\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
       <Filter>Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDLEvent.hpp">
+      <Filter>Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Entity.hpp">
+      <Filter>Game\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.hpp">
+      <Filter>Game\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
       <Filter>Core\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
