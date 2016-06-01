@@ -44,6 +44,8 @@ namespace Engine
 		bool GlewInit		( );
 		void SetupViewport	( );
 		void CleanupSDL		( );
+		void HandleWindowEvent(SDL_Event* event);
+		void HandleKeyboardEvent(SDL_Event* event);
 
 		/* =============================================================
 		 * MEMBERS
@@ -54,6 +56,7 @@ namespace Engine
 		SDL_Window*			m_mainWindow;
 		SDL_GLContext		m_context;
 		GameState::State	m_state;
+		int					m_nUpdates;
 	};
 }
 #endif /* GAME_HPP */
