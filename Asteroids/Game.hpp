@@ -4,10 +4,12 @@
 
 // C++ STL
 #include <string>
+#include <list>
 
 // Asteroids
 #include "SDLEvent.hpp"
 #include "Player.hpp"
+#include "Asteroid.hpp"
 
 namespace Engine
 {
@@ -51,6 +53,7 @@ namespace Engine
 		void CleanupSDL		( );
 		void OnResize		( int width, int height ) override;
 		void OnExit			( ) override;
+		void CreateAsteroid(Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x = 0.0f, float y = 0.0f);
 
 		/* =============================================================
 		 * MEMBERS
@@ -63,6 +66,7 @@ namespace Engine
 		GameState::State	m_state;
 		int					m_nUpdates;
 		Asteroids::Player*	m_player;
+		std::list< Asteroids::Asteroid* > m_asteroids;
 	};
 }
 #endif /* GAME_HPP */

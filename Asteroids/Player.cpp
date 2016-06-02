@@ -23,6 +23,7 @@ namespace Asteroids
 		, m_rotation(250)
 		, m_currentShip(-1)
 	{
+		m_mass = 0.5f;
 		// Set model render vertices (default ship)
 		//
 		ChangeShip();

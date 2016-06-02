@@ -13,6 +13,7 @@ namespace Asteroids
 		virtual void ApplyImpulse	( Engine::Vector2 impulse ) = 0;
 		virtual void Update			( float deltaTime, int worldWidth, int worldHeight );
 		virtual void Render			( ) = 0;
+		void Teleport(float newX, float newY);
 	protected:
 		Engine::Vector2				m_position;
 		Engine::Vector2				m_velocity;

@@ -38,4 +38,10 @@ namespace Asteroids
 		m_position.x = wrap(m_position.x, worldMinX, worldMaxX);
 		m_position.y = wrap(m_position.y, worldMinY, worldMaxY);
 	}
+
+	void Entity::Teleport(float newX, float newY)
+	{
+		m_position.x = newX;
+		m_position.y = newY;
+	}
 }

@@ -17,7 +17,7 @@ namespace Asteroids
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		Player();
+		Player							( );
 		void Update						( float deltaTime, int worldWidth, int worldHeight );
 		void Render						( );
 

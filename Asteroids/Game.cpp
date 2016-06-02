@@ -10,11 +10,17 @@
 
 namespace Engine
 {
+	inline float randInRange(float min, float max)
+	{
+		return min + (max - min) * (rand() / (float)RAND_MAX);
+	}
+
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
 	bool up = false;
 	bool left = false;
 	bool right = false;
+	float m_dimensions[2];
 
 	Game::Game(const std::string& title, const int width, const int height)
 		: m_title(title),
@@ -25,6 +31,8 @@ namespace Engine
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
 		m_player = new Asteroids::Player();
+		m_dimensions[0] = width;
+		m_dimensions[1] = height;
 	}
 
 	Game::~Game()
@@ -42,6 +50,7 @@ namespace Engine
 		}
 
 		m_state = GameState::RUNNING;
+		CreateAsteroid(Asteroids::Asteroid::AsteroidSize::BIG, 10);
 
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
@@ -80,6 +89,41 @@ namespace Engine
 
 		return true;
 	}	
+
+	void Game::CreateAsteroid(Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x, float y)
+	{
+		for (int i = 0; i < amount; ++i)
+		{
+			Asteroids::Asteroid* pAsteroid = new Asteroids::Asteroid(size);
+			/*m_actors.push_back(pAsteroid);*/
+			m_asteroids.push_back(pAsteroid);
+
+			if (x == 0 && y == 0)
+			{
+				const int sideAxis = rand() & 1;
+				const float sideDir = (rand() & 1) ? 1.0f : -1.0f;
+
+				const int otherSideAxis = (sideAxis + 1) & 1;
+
+				float point[2];
+				point[sideAxis] = sideDir * m_dimensions[sideAxis] * 0.5f;
+				point[otherSideAxis] = randInRange(m_dimensions[otherSideAxis] * -0.5f, m_dimensions[otherSideAxis] * 0.5f);
+
+				pAsteroid->Teleport(point[0], point[1]);
+			}
+			else
+			{
+				pAsteroid->Teleport(x, y);
+			}
+
+			// Applying impulse to the asteroid
+			//
+			float x = randInRange(-150.0f, 150.0f);
+			float y = randInRange(-150.0f, 150.0f);
+
+			pAsteroid->ApplyImpulse(Engine::Vector2(x, y));
+		}
+	}
 
 	void Game::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
 	{		
@@ -140,6 +184,14 @@ namespace Engine
 			m_player->RotateRight(DESIRED_FRAME_TIME);
 
 		m_player->Update(DESIRED_FRAME_TIME, m_width, m_height);
+
+		std::list< Asteroids::Asteroid* >::iterator ait = m_asteroids.begin();
+		while (ait != m_asteroids.end())
+		{
+			(*ait)->Update(DESIRED_FRAME_TIME, m_width, m_height);
+			++ait;
+		}
+
 		m_nUpdates++;
 	}
 
@@ -151,6 +203,13 @@ namespace Engine
 		// Render player
 		//
 		m_player->Render();
+
+		std::list< Asteroids::Asteroid* >::iterator ait = m_asteroids.begin();
+		while (ait != m_asteroids.end())
+		{
+			(*ait)->Render();
+			++ait;
+		}
 
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
