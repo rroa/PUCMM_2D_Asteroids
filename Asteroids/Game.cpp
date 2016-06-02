@@ -119,6 +119,9 @@ namespace Engine
 		case SDL_SCANCODE_D:
 			right = false;
 			break;
+		case SDL_SCANCODE_TAB:
+			m_player->ChangeShip();
+			break;
 		case SDL_SCANCODE_SPACE:
 			break;
 		case SDL_SCANCODE_ESCAPE:
