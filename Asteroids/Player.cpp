@@ -11,7 +11,7 @@ namespace Asteroids
 
 	Player::Player()
 		: m_angle(0.0f)
-		, m_rotation(120)
+		, m_rotation(0.5)
 	{
 		// Set model render vertices
 		//
@@ -32,28 +32,31 @@ namespace Asteroids
 	{
 		if (m_mass > 0)
 		{
-			m_velocity.x += (impulse.x / m_mass) * cosf(m_angle * (PI / 180));
-			m_velocity.y += (impulse.y / m_mass) * sinf(m_angle * (PI / 180));
+			float cos = cosf(m_angle * (PI / 180));
+			float sin = sinf(m_angle * (PI / 180));
+					
+			m_velocity.x += (impulse.x / m_mass) * (cos == 0 ? 1 : cos);
+			m_velocity.y += (impulse.y / m_mass) * (sin == 0 ? 1 : sin);
 		}
 	}
 
 	void Player::MoveDown()
 	{
-		ApplyImpulse(Engine::Vector2(-THRUST, -THRUST));
+		ApplyImpulse(Engine::Vector2((m_angle == 0 ? 0 : -THRUST), -THRUST));
 	}
 
 	void Player::MoveLeft()
 	{
-		ApplyImpulse(Engine::Vector2(-THRUST, 0));
+		ApplyImpulse(Engine::Vector2(-THRUST, (m_angle == 0 ? 0 : -THRUST)));
 	}
 	void Player::MoveRight()
 	{
-		ApplyImpulse(Engine::Vector2(THRUST, 0));
+		ApplyImpulse(Engine::Vector2(THRUST, (m_angle == 0 ? 0 : THRUST)));
 	}
 
 	void Player::MoveUp()
 	{
-		ApplyImpulse(Engine::Vector2(THRUST, THRUST));
+		ApplyImpulse(Engine::Vector2((m_angle == 0 ? 0 : THRUST), THRUST));
 	}
 
 	void Player::RotateRight(float deltaTime)

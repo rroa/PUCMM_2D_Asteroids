@@ -88,12 +88,15 @@ namespace Engine
 			break;
 		case SDL_SCANCODE_A:
 			//
+			m_player->RotateLeft(DESIRED_FRAME_RATE);
 			break;
 		case SDL_SCANCODE_S:
 			//
+			m_player->MoveDown();
 			break;
 		case SDL_SCANCODE_D:
 			//
+			m_player->RotateRight(DESIRED_FRAME_RATE);
 			break;
 		case SDL_SCANCODE_SPACE:
 			//
