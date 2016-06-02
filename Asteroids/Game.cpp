@@ -95,7 +95,6 @@ namespace Engine
 		for (int i = 0; i < amount; ++i)
 		{
 			Asteroids::Asteroid* pAsteroid = new Asteroids::Asteroid(size);
-			/*m_actors.push_back(pAsteroid);*/
 			m_asteroids.push_back(pAsteroid);
 
 			if (x == 0 && y == 0)
