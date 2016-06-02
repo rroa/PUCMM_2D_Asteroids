@@ -30,16 +30,16 @@ namespace Asteroids
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		Asteroid( AsteroidSize::Size size );
-		void ApplyImpulse(Engine::Vector2 impulse) override;
-		void Update(float deltaTime, int worldWidth, int worldHeight);
-		void Render();
-		AsteroidSize::Size GetSize();
+		Asteroid						( AsteroidSize::Size size );
+		void ApplyImpulse				( Engine::Vector2 impulse ) override;
+		void Update						( float deltaTime, int worldWidth, int worldHeight );
+		void Render						( ) override;
+		AsteroidSize::Size GetSize		( );
 	private:
 		std::vector<Engine::Vector2>    m_points;
-		AsteroidSize::Size m_size;
-		int m_sizeFactor;
-		float m_radius;
+		AsteroidSize::Size				m_size;
+		int								m_sizeFactor;
+		float							m_radius;
 		float							m_angle;
 		float							m_rotation;
 	};
