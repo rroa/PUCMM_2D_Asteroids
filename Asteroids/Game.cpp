@@ -12,6 +12,9 @@ namespace Engine
 {
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
+	bool up = false;
+	bool left = false;
+	bool right = false;
 
 	Game::Game(const std::string& title, const int width, const int height)
 		: m_title(title),
@@ -79,21 +82,23 @@ namespace Engine
 	}	
 
 	void Game::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
-	{
+	{		
 		switch (keyBoardEvent.keysym.scancode)
 		{
 		case SDL_SCANCODE_W:
 			//
-			m_player->MoveUp();
+			//m_player->MoveUp();
+			up = true;
 			break;
 		case SDL_SCANCODE_A:
 			//
-			break;
-		case SDL_SCANCODE_S:
-			//
-			break;
+			//m_player->RotateLeft(DESIRED_FRAME_TIME);
+			left = true;
+			break;		
 		case SDL_SCANCODE_D:
 			//
+			//m_player->RotateRight(DESIRED_FRAME_TIME);
+			right = true;
 			break;
 		case SDL_SCANCODE_SPACE:
 			//
@@ -105,6 +110,17 @@ namespace Engine
 	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
+		case SDL_SCANCODE_W:
+			up = false;
+			break;
+		case SDL_SCANCODE_A:
+			left = false;
+			break;
+		case SDL_SCANCODE_D:
+			right = false;
+			break;
+		case SDL_SCANCODE_SPACE:
+			break;
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
 			break;
@@ -113,7 +129,14 @@ namespace Engine
 
 	void Game::OnUpdate()
 	{
-		m_player->Update(DESIRED_FRAME_RATE, m_width, m_height);
+		if (up)
+			m_player->MoveUp();
+		if (left)
+			m_player->RotateLeft(DESIRED_FRAME_TIME);
+		if (right)
+			m_player->RotateRight(DESIRED_FRAME_TIME);
+
+		m_player->Update(DESIRED_FRAME_TIME, m_width, m_height);
 		m_nUpdates++;
 	}
 

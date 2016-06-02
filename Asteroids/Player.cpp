@@ -5,13 +5,22 @@
 namespace Asteroids
 {
 	const float DRAG_FORCE = 0.999f;
-	const float MAX_VELOCITY = 5.0f;
-	const float THRUST = 0.15f;
+	const float MAX_VELOCITY = 350.0f;
+	const float THRUST = 3.0f;
+	const float ANGLE_OFFSET = 90.f;
 	const float PI = 3.141592653f;
+
+	/*
+	 * const float DRAG_FORCE = 0.999f;
+     * const float MAX_VELOCITY = 350.0f;
+     * const float THRUST = 3.0f;
+     * const float ANGLE_OFFSET = 90.f;
+     * const float BULLET_SPEED = 250.f;
+	 */
 
 	Player::Player()
 		: m_angle(0.0f)
-		, m_rotation(120)
+		, m_rotation(250)
 	{
 		// Set model render vertices
 		//
@@ -32,24 +41,10 @@ namespace Asteroids
 	{
 		if (m_mass > 0)
 		{
-			m_velocity.x += (impulse.x / m_mass) * cosf(m_angle * (PI / 180));
-			m_velocity.y += (impulse.y / m_mass) * sinf(m_angle * (PI / 180));
+			m_velocity.x += (impulse.x / m_mass) * cosf((m_angle + ANGLE_OFFSET) * (PI / 180));
+			m_velocity.y += (impulse.y / m_mass) * sinf((m_angle + ANGLE_OFFSET) * (PI / 180));
 		}
-	}
-
-	void Player::MoveDown()
-	{
-		ApplyImpulse(Engine::Vector2(-THRUST, -THRUST));
-	}
-
-	void Player::MoveLeft()
-	{
-		ApplyImpulse(Engine::Vector2(-THRUST, 0));
-	}
-	void Player::MoveRight()
-	{
-		ApplyImpulse(Engine::Vector2(THRUST, 0));
-	}
+	}	
 
 	void Player::MoveUp()
 	{

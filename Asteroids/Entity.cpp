@@ -26,11 +26,14 @@ namespace Asteroids
 		m_position.x += m_velocity.x * static_cast<float>(deltaTime);
 		m_position.y += m_velocity.y * static_cast<float>(deltaTime);
 
-		float worldMinX = -(worldWidth / 2);
-		float worldMaxX =  (worldWidth / 2);
+		float halfWidth = (worldWidth / 2.0f);
+		float halfHeight = (worldHeight / 2.0f);
 
-		float worldMinY = -(worldHeight / 2);
-		float worldMaxY =  (worldHeight / 2);
+		float worldMinX = -halfWidth;
+		float worldMaxX =  halfWidth;
+
+		float worldMinY = -halfHeight;
+		float worldMaxY =  halfHeight;
 
 		m_position.x = wrap(m_position.x, worldMinX, worldMaxX);
 		m_position.y = wrap(m_position.y, worldMinY, worldMaxY);
