@@ -15,11 +15,11 @@ namespace Asteroids
 	{
 		// Set model render vertices
 		//
-		m_points.push_back(Engine::Vector2(0.0f, 20.0f));
-		m_points.push_back(Engine::Vector2(12.0f, -10.0f));
-		m_points.push_back(Engine::Vector2(6.0f, -4.0f));
-		m_points.push_back(Engine::Vector2(-6.0f, -4.0f));
-		m_points.push_back(Engine::Vector2(-12.0f, -10.0f));
+		m_points.push_back(Engine::Vector2(20.0f, 0.0f));
+		m_points.push_back(Engine::Vector2(-10.0f, -12.0f));
+		m_points.push_back(Engine::Vector2(-4.0f, -6.0f));
+		m_points.push_back(Engine::Vector2(-4.0f, 6.0f));
+		m_points.push_back(Engine::Vector2(-10.0f, 12.0f));
 	}
 
 	void Player::ApplyDrag()
@@ -47,7 +47,7 @@ namespace Asteroids
 
 	void Player::MoveLeft()
 	{
-		ApplyImpulse(Engine::Vector2((m_angle == 0 ? 0 : -THRUST) , -THRUST));
+		ApplyImpulse(Engine::Vector2((m_angle == 0 ? 0 : -THRUST), -THRUST));
 	}
 	void Player::MoveRight()
 	{
@@ -71,7 +71,7 @@ namespace Asteroids
 
 	void Player::Update(float deltaTime, int worldWidth, int worldHeight)
 	{
-		float speed = 
+		float speed =
 			fabs(sqrtf(m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y));
 
 		if (speed > MAX_VELOCITY)
@@ -91,16 +91,16 @@ namespace Asteroids
 	{
 		glLoadIdentity();
 		glTranslatef(m_position.x, m_position.y, 0.0f);
-		glRotatef(m_angle - 90.0, 0.0f, 0.0f, 1.0f);
+		glRotatef(m_angle, 0.0f, 0.0f, 1.0f);
 
 		glBegin(GL_LINE_LOOP);
-		
+
 		std::vector<Engine::Vector2>::iterator it = m_points.begin();
-		for ( ;it != m_points.end(); ++it)
+		for (; it != m_points.end(); ++it)
 		{
 			glVertex2f((*it).x, (*it).y);
 		}
-		
+
 		glEnd();
 	}
 }
