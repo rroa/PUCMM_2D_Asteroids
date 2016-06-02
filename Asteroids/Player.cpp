@@ -5,12 +5,12 @@
 namespace Asteroids
 {
 	const float DRAG_FORCE = 0.999f;
-	const float MAX_VELOCITY = 5.0f;
-	const float THRUST = 0.15f;
+	const float MAX_VELOCITY = 0.2f;
+	const float THRUST = 0.05f;
 	const float PI = 3.141592653f;
 
 	Player::Player()
-		: m_angle(0.0f)
+		: m_angle(90.0f)
 		, m_rotation(0.5)
 	{
 		// Set model render vertices
@@ -34,29 +34,29 @@ namespace Asteroids
 		{
 			float cos = cosf(m_angle * (PI / 180));
 			float sin = sinf(m_angle * (PI / 180));
-					
-			m_velocity.x += (impulse.x / m_mass) * (cos == 0 ? 1 : cos);
-			m_velocity.y += (impulse.y / m_mass) * (sin == 0 ? 1 : sin);
+
+			m_velocity.x += (impulse.x / m_mass) * cos;
+			m_velocity.y += (impulse.y / m_mass) * sin;
 		}
 	}
 
 	void Player::MoveDown()
 	{
-		ApplyImpulse(Engine::Vector2((m_angle == 0 ? 0 : -THRUST), -THRUST));
+		ApplyImpulse(Engine::Vector2(-THRUST, (m_angle == 0 ? 0 : -THRUST)));
 	}
 
 	void Player::MoveLeft()
 	{
-		ApplyImpulse(Engine::Vector2(-THRUST, (m_angle == 0 ? 0 : -THRUST)));
+		ApplyImpulse(Engine::Vector2((m_angle == 0 ? 0 : -THRUST) , -THRUST));
 	}
 	void Player::MoveRight()
 	{
-		ApplyImpulse(Engine::Vector2(THRUST, (m_angle == 0 ? 0 : THRUST)));
+		ApplyImpulse(Engine::Vector2((m_angle == 0 ? 0 : THRUST), THRUST));
 	}
 
 	void Player::MoveUp()
 	{
-		ApplyImpulse(Engine::Vector2((m_angle == 0 ? 0 : THRUST), THRUST));
+		ApplyImpulse(Engine::Vector2(THRUST, (m_angle == 0 ? 0 : THRUST)));
 	}
 
 	void Player::RotateRight(float deltaTime)
@@ -91,7 +91,7 @@ namespace Asteroids
 	{
 		glLoadIdentity();
 		glTranslatef(m_position.x, m_position.y, 0.0f);
-		glRotatef(m_angle, 0.0f, 0.0f, 1.0f);
+		glRotatef(m_angle - 90.0, 0.0f, 0.0f, 1.0f);
 
 		glBegin(GL_LINE_LOOP);
 		
