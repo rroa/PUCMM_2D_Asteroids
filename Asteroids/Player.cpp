@@ -21,14 +21,11 @@ namespace Asteroids
 	Player::Player()
 		: m_angle(0.0f)
 		, m_rotation(250)
+		, m_currentShip(-1)
 	{
-		// Set model render vertices
+		// Set model render vertices (default ship)
 		//
-		m_points.push_back(Engine::Vector2(0.0f, 20.0f));
-		m_points.push_back(Engine::Vector2(12.0f, -10.0f));
-		m_points.push_back(Engine::Vector2(6.0f, -4.0f));
-		m_points.push_back(Engine::Vector2(-6.0f, -4.0f));
-		m_points.push_back(Engine::Vector2(-12.0f, -10.0f));
+		ChangeShip();
 	}
 
 	void Player::ApplyDrag()
@@ -59,6 +56,105 @@ namespace Asteroids
 	void Player::RotateLeft(float deltaTime)
 	{
 		m_angle += m_rotation * (deltaTime);
+	}
+
+	void Player::ChangeShip()
+	{
+		m_currentShip = ++m_currentShip % 3;
+		m_points.clear();
+
+		switch (m_currentShip)
+		{
+		case 1:
+			// Millennium Falcon
+			//
+			m_points.push_back(Engine::Vector2(0.0f, 20.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 20.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 44.0f));
+			m_points.push_back(Engine::Vector2(10.0f, 44.0f));
+			m_points.push_back(Engine::Vector2(12.0f, 40.0f));
+			m_points.push_back(Engine::Vector2(16.0f, 32.0f));
+			m_points.push_back(Engine::Vector2(20.0f, 24.0f));
+			m_points.push_back(Engine::Vector2(20.0f, 20.0f));
+			m_points.push_back(Engine::Vector2(22.0f, 24.0f));
+			m_points.push_back(Engine::Vector2(24.0f, 28.0f));
+			m_points.push_back(Engine::Vector2(28.0f, 28.0f));
+			m_points.push_back(Engine::Vector2(28.0f, 12.0f));
+			m_points.push_back(Engine::Vector2(24.0f, 12.0f));
+			m_points.push_back(Engine::Vector2(28.0f, 4.0f));
+			m_points.push_back(Engine::Vector2(28.0f, -8.0f));
+			m_points.push_back(Engine::Vector2(24.0f, -16.0f));
+			m_points.push_back(Engine::Vector2(20.0f, -20.0f));
+			m_points.push_back(Engine::Vector2(20.0f, -24.0f));
+			m_points.push_back(Engine::Vector2(12.0f, -28.0f));
+			m_points.push_back(Engine::Vector2(4.0f, -32.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, -32.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, -28.0f));
+			m_points.push_back(Engine::Vector2(-20.0f, -24.0f));
+			m_points.push_back(Engine::Vector2(-20.0f, -20.0f));
+			m_points.push_back(Engine::Vector2(-24.0f, -16.0f));
+			m_points.push_back(Engine::Vector2(-28.0f, -8.0f));
+			m_points.push_back(Engine::Vector2(-28.0f, 4.0f));
+			m_points.push_back(Engine::Vector2(-24.0f, 12.0f));
+			m_points.push_back(Engine::Vector2(-20.0f, 20.0f));
+			m_points.push_back(Engine::Vector2(-20.0f, 24.0f));
+			m_points.push_back(Engine::Vector2(-16.0f, 32.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, 40.0f));
+			m_points.push_back(Engine::Vector2(-10.0f, 44.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 44.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 20.0f));
+			break;
+		case 2:
+			// USS Enterprise
+			//
+			m_points.push_back(Engine::Vector2(0.0f, 40.0f));
+			m_points.push_back(Engine::Vector2(8.0f, 40.0f));
+			m_points.push_back(Engine::Vector2(12.0f, 36.0f));
+			m_points.push_back(Engine::Vector2(20.0f, 28.0f));
+			m_points.push_back(Engine::Vector2(22.0f, 24.0f));
+			m_points.push_back(Engine::Vector2(24.0f, 20.0f));
+			m_points.push_back(Engine::Vector2(24.0f, 16.0f));
+			m_points.push_back(Engine::Vector2(20.0f, 8.0f));
+			m_points.push_back(Engine::Vector2(16.0f, 0.0f));
+			m_points.push_back(Engine::Vector2(12.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(12.0f, -12.0f));
+			m_points.push_back(Engine::Vector2(18.0f, -16.0f));
+			m_points.push_back(Engine::Vector2(18.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(24.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(24.0f, -40.0f));
+			m_points.push_back(Engine::Vector2(18.0f, -40.0f));
+			m_points.push_back(Engine::Vector2(18.0f, -24.0f));
+			m_points.push_back(Engine::Vector2(12.0f, -20.0f));
+			m_points.push_back(Engine::Vector2(4.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, -20.0f));
+			m_points.push_back(Engine::Vector2(-18.0f, -24.0f));
+			m_points.push_back(Engine::Vector2(-18.0f, -40.0f));
+			m_points.push_back(Engine::Vector2(-24.0f, -40.0f));
+			m_points.push_back(Engine::Vector2(-24.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(-18.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(-18.0f, -16.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, -12.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(-16.0f, 0.0f));
+			m_points.push_back(Engine::Vector2(-20.0f, 8.0f));
+			m_points.push_back(Engine::Vector2(-24.0f, 16.0f));
+			m_points.push_back(Engine::Vector2(-24.0f, 20.0f));
+			m_points.push_back(Engine::Vector2(-22.0f, 24.0f));
+			m_points.push_back(Engine::Vector2(-20.0f, 28.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, 36.0f));
+			m_points.push_back(Engine::Vector2(-8.0f, 40.0f));
+			break;
+		default:
+			// Original
+			//
+			m_points.push_back(Engine::Vector2(0.0f, 20.0f));
+			m_points.push_back(Engine::Vector2(12.0f, -10.0f));
+			m_points.push_back(Engine::Vector2(6.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(-6.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, -10.0f));
+			break;
+		}
 	}
 
 	void Player::Update(float deltaTime, int worldWidth, int worldHeight)

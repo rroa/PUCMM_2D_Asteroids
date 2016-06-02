@@ -25,11 +25,9 @@ namespace Asteroids
 		void ApplyImpulse				( Engine::Vector2 impulse ) override;
 		void ApplyDrag					( );
 		void MoveUp						( );
-		void MoveDown					( );
-		void MoveLeft					( );
-		void MoveRight					( );
 		void RotateRight				( float deltaTime );
 		void RotateLeft					( float deltaTime );
+		void ChangeShip					( );
 	private:
 		/* =============================================================
 		* MEMBERS
@@ -38,6 +36,7 @@ namespace Asteroids
 		float							m_angle;
 		float							m_rotation;
 		float							m_currentSpeed;
+		int							    m_currentShip;
 	};
 }
 
