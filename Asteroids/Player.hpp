@@ -18,14 +18,26 @@ namespace Asteroids
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
 		Player();
-		void Update						( );
+		void Update						( float deltaTime, int worldWidth, int worldHeight );
 		void Render						( );
+
+		//
+		void ApplyImpulse				( Engine::Vector2 impulse ) override;
+		void ApplyDrag					( );
+		void MoveUp						( );
+		void MoveDown					( );
+		void MoveLeft					( );
+		void MoveRight					( );
+		void RotateRight				( float deltaTime );
+		void RotateLeft					( float deltaTime );
 	private:
 		/* =============================================================
 		* MEMBERS
 		* ============================================================= */
 		std::vector<Engine::Vector2>    m_points;
 		float							m_angle;
+		float							m_rotation;
+		float							m_currentSpeed;
 	};
 }
 

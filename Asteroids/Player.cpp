@@ -1,10 +1,17 @@
 #include "Player.hpp"
 #include <SDL2/SDL_opengl.h>
+#include <cmath>
 
 namespace Asteroids
 {
+	const float DRAG_FORCE = 0.999f;
+	const float MAX_VELOCITY = 5.0f;
+	const float THRUST = 0.15f;
+	const float PI = 3.141592653f;
+
 	Player::Player()
 		: m_angle(0.0f)
+		, m_rotation(120)
 	{
 		// Set model render vertices
 		//
@@ -15,8 +22,66 @@ namespace Asteroids
 		m_points.push_back(Engine::Vector2(-12.0f, -10.0f));
 	}
 
-	void Player::Update()
+	void Player::ApplyDrag()
 	{
+		m_velocity.x *= DRAG_FORCE;
+		m_velocity.y *= DRAG_FORCE;
+	}
+
+	void Player::ApplyImpulse(Engine::Vector2 impulse)
+	{
+		if (m_mass > 0)
+		{
+			m_velocity.x += (impulse.x / m_mass) * cosf(m_angle * (PI / 180));
+			m_velocity.y += (impulse.y / m_mass) * sinf(m_angle * (PI / 180));
+		}
+	}
+
+	void Player::MoveDown()
+	{
+		ApplyImpulse(Engine::Vector2(-THRUST, -THRUST));
+	}
+
+	void Player::MoveLeft()
+	{
+		ApplyImpulse(Engine::Vector2(-THRUST, 0));
+	}
+	void Player::MoveRight()
+	{
+		ApplyImpulse(Engine::Vector2(THRUST, 0));
+	}
+
+	void Player::MoveUp()
+	{
+		ApplyImpulse(Engine::Vector2(THRUST, THRUST));
+	}
+
+	void Player::RotateRight(float deltaTime)
+	{
+		m_angle -= m_rotation * (deltaTime);
+	}
+
+	void Player::RotateLeft(float deltaTime)
+	{
+		m_angle += m_rotation * (deltaTime);
+	}
+
+	void Player::Update(float deltaTime, int worldWidth, int worldHeight)
+	{
+		float speed = 
+			fabs(sqrtf(m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y));
+
+		if (speed > MAX_VELOCITY)
+		{
+			m_velocity.x = (m_velocity.x / speed) * MAX_VELOCITY;
+			m_velocity.y = (m_velocity.y / speed) * MAX_VELOCITY;
+		}
+
+		m_currentSpeed = speed;
+
+		ApplyDrag();
+
+		Entity::Update(deltaTime, worldWidth, worldHeight);
 	}
 
 	void Player::Render()

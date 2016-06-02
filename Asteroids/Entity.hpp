@@ -10,11 +10,13 @@ namespace Asteroids
 	{
 	public:
 		Entity();
-		virtual void Update() = 0;
-		virtual void Render() = 0;
+		virtual void ApplyImpulse	( Engine::Vector2 impulse ) = 0;
+		virtual void Update			( float deltaTime, int worldWidth, int worldHeight );
+		virtual void Render			( ) = 0;
 	protected:
-		Engine::Vector2 m_position;
-		Engine::Vector2 m_velocity;
+		Engine::Vector2				m_position;
+		Engine::Vector2				m_velocity;
+		float						m_mass;
 	};
 }
 

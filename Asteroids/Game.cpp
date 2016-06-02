@@ -10,10 +10,8 @@
 
 namespace Engine
 {
-	const float PI = 3.141592653f;
-	static float x = 0;
-	static float y = 0;
-	static float angle = 0;
+	const float DESIRED_FRAME_RATE = 60.0f;
+	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
 
 	Game::Game(const std::string& title, const int width, const int height)
 		: m_title(title),
@@ -78,42 +76,45 @@ namespace Engine
 		m_state = GameState::INIT_SUCCESSFUL;
 
 		return true;
-	}
-
-	//void Game::HandleKeyboardEvent(SDL_Event* event)
-	//{
-	//	switch (event->key.keysym.scancode)
-	//	{
-	//	case SDL_SCANCODE_W:
-	//		x += 1 + std::cosf(angle * (PI / 180));
-	//		y += 1 + std::sinf(angle * (PI / 180));
-	//		break;
-	//	case SDL_SCANCODE_A:
-	//		angle += 1.0f;
-	//		break;
-	//	case SDL_SCANCODE_D:
-	//		angle -= 1.0f;
-	//		break;
-	//	default:
-	//		break;
-	//	}
-	//	/*if (event->key.keysym.scancode != SDL_GetScancodeFromKey(event->key.keysym.sym))*/
-	//	std::cout << "Physical "
-	//		<< SDL_GetScancodeName(event->key.keysym.scancode)
-	//		<< " key acting as "
-	//		<< SDL_GetKeyName(event->key.keysym.sym)
-	//		<< " key\n";
-	//}
+	}	
 
 	void Game::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
-	{}
+	{
+		switch (keyBoardEvent.keysym.scancode)
+		{
+		case SDL_SCANCODE_W:
+			//
+			m_player->MoveUp();
+			break;
+		case SDL_SCANCODE_A:
+			//
+			break;
+		case SDL_SCANCODE_S:
+			//
+			break;
+		case SDL_SCANCODE_D:
+			//
+			break;
+		case SDL_SCANCODE_SPACE:
+			//
+			break;
+		}
+	}
 
 	void Game::OnKeyUp(SDL_KeyboardEvent keyBoardEvent)
-	{}
+	{
+		switch (keyBoardEvent.keysym.scancode)
+		{
+		case SDL_SCANCODE_ESCAPE:
+			OnExit();
+			break;
+		}
+	}
 
 	void Game::OnUpdate()
 	{
-		/*m_nUpdates++;*/
+		m_player->Update(DESIRED_FRAME_RATE, m_width, m_height);
+		m_nUpdates++;
 	}
 
 	void Game::OnRender()

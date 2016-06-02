@@ -39,8 +39,8 @@ namespace Engine
 		bool OnInit			( );
 		void OnUpdate		( );
 		void OnRender		( );
-		void OnKeyDown	    ( SDL_KeyboardEvent keyBoardEvent );
-		void OnKeyUp		( SDL_KeyboardEvent keyBoardEvent );
+		void OnKeyDown	    ( SDL_KeyboardEvent keyBoardEvent ) override;
+		void OnKeyUp		( SDL_KeyboardEvent keyBoardEvent ) override;
 	private:
 		/* =============================================================
 		 * PRIVATE FUNCTIONS
@@ -49,8 +49,8 @@ namespace Engine
 		bool GlewInit		( );
 		void SetupViewport	( );
 		void CleanupSDL		( );
-		void OnResize		( int width, int height );
-		void OnExit			( );
+		void OnResize		( int width, int height ) override;
+		void OnExit			( ) override;
 
 		/* =============================================================
 		 * MEMBERS
