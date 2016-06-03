@@ -6,7 +6,9 @@ namespace Asteroids
 	Bullet::Bullet()
 		: m_currentLifespan(0.f)
 		, m_lifespan(120.f)
-	{}
+	{
+		m_radius = 1.0f;
+	}
 
 	void Bullet::ApplyImpulse(Engine::Vector2 impulse)
 	{

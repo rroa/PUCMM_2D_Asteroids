@@ -21,7 +21,7 @@ namespace Engine
 	bool up = false;
 	bool left = false;
 	bool right = false;
-	float m_dimensions[2];
+	int  m_dimensions[2];
 
 	Game::Game(const std::string& title, const int width, const int height)
 		: m_title(title),
@@ -32,13 +32,16 @@ namespace Engine
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
 		m_player = new Asteroids::Player();
+		m_entities.push_back(m_player);
 		m_dimensions[0] = width;
 		m_dimensions[1] = height;
 	}
 
 	Game::~Game()
 	{
-		delete m_player;
+		if(m_player)
+			delete m_player;
+
 		CleanupSDL();
 	}
 
@@ -51,7 +54,7 @@ namespace Engine
 		}
 
 		m_state = GameState::RUNNING;
-		CreateAsteroid(Asteroids::Asteroid::AsteroidSize::BIG, 10);
+		CreateAsteroid(Asteroids::Asteroid::AsteroidSize::BIG, 1);
 
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
@@ -96,6 +99,7 @@ namespace Engine
 		for (int i = 0; i < amount; ++i)
 		{
 			Asteroids::Asteroid* pAsteroid = new Asteroids::Asteroid(size);
+			m_entities.push_back(pAsteroid);
 			m_asteroids.push_back(pAsteroid);
 
 			if (x == 0 && y == 0)
@@ -127,8 +131,65 @@ namespace Engine
 
 	void Game::CreateBullet()
 	{
-		Asteroids::Bullet* pBullet = m_player->Shoot();		
+		Asteroids::Bullet* pBullet = m_player->Shoot();	
+		m_entities.push_back(pBullet);
 		m_bullets.push_back(pBullet);
+	}
+
+	void Game::CreateDebris(Asteroids::Entity* entity)
+	{
+		auto currentAsteroid = dynamic_cast < Asteroids::Asteroid* >(entity);
+		if (currentAsteroid != nullptr
+			&& currentAsteroid->GetSize() != Asteroids::Asteroid::AsteroidSize::SMALL)
+		{
+			auto newSize = 
+				(currentAsteroid->GetSize() == Asteroids::Asteroid::AsteroidSize::BIG) ? 
+					Asteroids::Asteroid::AsteroidSize::MEDIUM : 
+					Asteroids::Asteroid::AsteroidSize::SMALL;
+
+			CreateAsteroid(newSize, 2, currentAsteroid->GetX(), currentAsteroid->GetY());
+		}
+	}
+
+	void Game::CleanEntities()
+	{
+		auto iter = std::find_if(m_entities.begin(), m_entities.end(),
+			[&](Asteroids::Entity* actor) { return actor->IsColliding() || actor->IsDisappearing(); });
+		if (iter != m_entities.end())
+		{
+			DestroyEntity(*iter);
+		}
+	}
+
+	void Game::CheckCollision()
+	{
+		for (std::list< Asteroids::Asteroid* >::iterator asteroid = m_asteroids.begin(); asteroid != m_asteroids.end(); ++asteroid)
+		{
+			if ((*asteroid)->CouldCollide() && m_player->CouldCollide())
+			{
+				if (m_player->DetectCollision((*asteroid)))
+				{
+					CreateDebris((*asteroid));
+				}
+
+				for (std::list< Asteroids::Bullet* >::iterator bullet = m_bullets.begin(); bullet != m_bullets.end(); ++bullet)
+				{
+					if ((*bullet)->CouldCollide() && (*asteroid)->CouldCollide())
+					{
+						if ((*asteroid)->DetectCollision((*bullet)))
+						{
+							CreateDebris((*asteroid));
+						}
+					}
+				}
+			}
+		}
+	}
+
+	void Game::RespawnPlayer()
+	{
+		m_player = new Asteroids::Player();
+		m_entities.push_back(m_player);
 	}
 
 	void Game::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
@@ -136,23 +197,13 @@ namespace Engine
 		switch (keyBoardEvent.keysym.scancode)
 		{
 		case SDL_SCANCODE_W:
-			//
-			//m_player->MoveUp();
 			up = true;
 			break;
 		case SDL_SCANCODE_A:
-			//
-			//m_player->RotateLeft(DESIRED_FRAME_TIME);
 			left = true;
 			break;		
 		case SDL_SCANCODE_D:
-			//
-			//m_player->RotateRight(DESIRED_FRAME_TIME);
 			right = true;
-			break;
-		case SDL_SCANCODE_SPACE:
-			//
-			CreateBullet();
 			break;
 		}
 	}
@@ -170,10 +221,15 @@ namespace Engine
 		case SDL_SCANCODE_D:
 			right = false;
 			break;
+		case SDL_SCANCODE_R:
+			RespawnPlayer();
+			break;
 		case SDL_SCANCODE_TAB:
 			m_player->ChangeShip();
 			break;
 		case SDL_SCANCODE_SPACE:
+			//
+			CreateBullet();
 			break;
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
@@ -190,27 +246,26 @@ namespace Engine
 		if (right)
 			m_player->RotateRight(DESIRED_FRAME_TIME);
 
-		m_player->Update(DESIRED_FRAME_TIME, m_width, m_height);
-
-		std::list< Asteroids::Asteroid* >::iterator ait = m_asteroids.begin();
-		while (ait != m_asteroids.end())
+		// Updating the entities
+		//
+		std::list< Asteroids::Entity* >::iterator ait = m_entities.begin();
+		while (ait != m_entities.end())
 		{
 			(*ait)->Update(DESIRED_FRAME_TIME, m_width, m_height);
 			++ait;
 		}
 
-		std::list< Asteroids::Bullet* >::iterator bul = m_bullets.begin();
-		while (bul != m_bullets.end())
+		if(m_player)
 		{
-			(*bul)->Update(DESIRED_FRAME_TIME, m_width, m_height);
-			++bul;
-		}
+			m_player->Update(DESIRED_FRAME_TIME, m_width, m_height);
 
-		auto iter = std::find_if(m_bullets.begin(), m_bullets.end(),
-			[&](Asteroids::Entity* actor) { return actor->IsColliding() || actor->IsDisappearing(); });
-		if (iter != m_bullets.end())
-		{
-			DestroyEntity(*iter);
+			// Checking collision between the entities
+			//
+			CheckCollision();
+
+			// Checking for entities marked as collided or for deletion
+			//
+			CleanEntities();
 		}
 
 		m_nUpdates++;
@@ -223,20 +278,13 @@ namespace Engine
 
 		// Render player
 		//
-		m_player->Render();
+		if (m_player)
+			m_player->Render();
 
-		std::list< Asteroids::Asteroid* >::iterator ait = m_asteroids.begin();
-		while (ait != m_asteroids.end())
+		for (std::list< Asteroids::Entity* >::iterator it = m_entities.begin(); it != m_entities.end(); ++it)
 		{
-			(*ait)->Render();
-			++ait;
-		}
-
-		std::list< Asteroids::Bullet* >::iterator bul = m_bullets.begin();
-		while (bul != m_bullets.end())
-		{
-			(*bul)->Render();
-			++bul;
+			if ((*it)->CouldCollide())
+				(*it)->Render();
 		}
 
 		SDL_GL_SwapWindow(m_mainWindow);
@@ -244,6 +292,10 @@ namespace Engine
 
 	void Game::DestroyEntity(Asteroids::Entity* entity)
 	{		
+		// Retrieve actor from m_actors list
+		//
+		auto actorsResult = std::find(m_entities.begin(), m_entities.end(), entity);
+
 		// Retrieve actor from m_asteroids list
 		//
 		auto asteroidsResult = std::find(m_asteroids.begin(), m_asteroids.end(), entity);
@@ -256,8 +308,20 @@ namespace Engine
 		//
 		delete entity;
 
+		if (m_player == entity)
+		{
+			//return;
+			m_player = nullptr;
+		}
+
+
 		// Deleting actor iterator from lists
 		//
+		if (m_entities.size() > 0 && actorsResult != m_entities.end())
+		{
+			m_entities.erase(actorsResult);
+		}
+
 		if (m_asteroids.size() > 0 && asteroidsResult != m_asteroids.end())
 		{
 			m_asteroids.erase(asteroidsResult);

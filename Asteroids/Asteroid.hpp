@@ -39,7 +39,6 @@ namespace Asteroids
 		std::vector<Engine::Vector2>    m_points;
 		AsteroidSize::Size				m_size;
 		int								m_sizeFactor;
-		float							m_radius;
 		float							m_angle;
 		float							m_rotation;
 	};

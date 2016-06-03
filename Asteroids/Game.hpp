@@ -55,8 +55,12 @@ namespace Engine
 		void OnResize						( int width, int height ) override;
 		void OnExit							( ) override;
 		void CreateAsteroid					( Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x = 0.0f, float y = 0.0f );
+		void CreateDebris					( Asteroids::Entity* entity );
+		void CheckCollision					( );
+		void CleanEntities					( );
 		void CreateBullet					( );
 		void DestroyEntity					( Asteroids::Entity* entity );
+		void RespawnPlayer					( );
 
 		/* =============================================================
 		 * MEMBERS
@@ -71,6 +75,7 @@ namespace Engine
 		Asteroids::Player*					m_player;
 		std::list< Asteroids::Asteroid* >	m_asteroids;
 		std::list< Asteroids::Bullet* >		m_bullets;
+		std::list< Asteroids::Entity* >     m_entities;
 	};
 }
 #endif /* GAME_HPP */

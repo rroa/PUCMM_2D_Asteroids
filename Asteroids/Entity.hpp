@@ -30,8 +30,12 @@ namespace Asteroids
 		virtual void Update			( float deltaTime, int worldWidth, int worldHeight );
 		virtual void Render			( ) = 0;
 		void Teleport				( float newX, float newY );
+		bool DetectCollision		( Entity* entity );
+		inline bool CouldCollide    ( ) { return m_state == EntityState::State::NORMAL; }
 		inline bool IsDisappearing  ( ) { return m_state == EntityState::State::DELETED;  }
 		inline bool IsColliding		( ) { return m_state == EntityState::State::COLLIDED; }
+		inline float GetX			( ) { return m_position.x; }
+		inline float GetY			( ) { return m_position.y; }
 	protected:
 		/* =============================================================
 		* MEMBERS
@@ -40,6 +44,7 @@ namespace Asteroids
 		Engine::Vector2				m_velocity;
 		float						m_mass;
 		EntityState::State			m_state;
+		float						m_radius;
 	};
 }
 
