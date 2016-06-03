@@ -14,13 +14,13 @@
 
 namespace Engine
 {
-	class Game : public SDLEvent
+	class App : public SDLEvent
 	{
 	public:
 		/* =============================================================
 		* ENUMERATORS
 		* ============================================================= */
-		struct GameState
+		struct AppState
 		{
 			enum State
 			{
@@ -36,8 +36,8 @@ namespace Engine
 		/* =============================================================
 		 * PUBLIC FUNCTIONS
 		 * ============================================================= */
-		Game								( const std::string& title, const int width, const int height );
-		~Game								( );
+		App									( const std::string& title, const int width, const int height );
+		~App								( );
 		void OnExecute						( );
 		bool OnInit							( );
 		void OnUpdate						( );
@@ -70,7 +70,7 @@ namespace Engine
 		int									m_height;
 		SDL_Window*							m_mainWindow;
 		SDL_GLContext						m_context;
-		GameState::State					m_state;
+		AppState::State						m_state;
 		int									m_nUpdates;
 		Asteroids::Player*					m_player;
 		std::list< Asteroids::Asteroid* >	m_asteroids;

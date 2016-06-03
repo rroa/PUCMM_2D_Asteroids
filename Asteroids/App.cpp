@@ -1,4 +1,4 @@
-#include "Game.hpp"
+#include "App.hpp"
 #include <iostream>
 #include <algorithm>
 
@@ -23,21 +23,21 @@ namespace Engine
 	bool right = false;
 	int  m_dimensions[2];
 
-	Game::Game(const std::string& title, const int width, const int height)
+	App::App(const std::string& title, const int width, const int height)
 		: m_title(title),
 		m_width(width),
 		m_height(height),
 		m_nUpdates(0)
 	{
 		m_mainWindow = nullptr;
-		m_state = GameState::UNINITIALIZED;
+		m_state = AppState::UNINITIALIZED;
 		m_player = new Asteroids::Player();
 		m_entities.push_back(m_player);
 		m_dimensions[0] = width;
 		m_dimensions[1] = height;
 	}
 
-	Game::~Game()
+	App::~App()
 	{
 		if(m_player)
 			delete m_player;
@@ -45,19 +45,19 @@ namespace Engine
 		CleanupSDL();
 	}
 
-	void Game::OnExecute()
+	void App::OnExecute()
 	{
-		if (m_state != GameState::INIT_SUCCESSFUL)
+		if (m_state != AppState::INIT_SUCCESSFUL)
 		{
 			std::cerr << "Game INIT was not successful." << std::endl;
 			return;
 		}
 
-		m_state = GameState::RUNNING;
+		m_state = AppState::RUNNING;
 		CreateAsteroid(Asteroids::Asteroid::AsteroidSize::BIG, 1);
 
 		SDL_Event event;
-		while (m_state == GameState::RUNNING)
+		while (m_state == AppState::RUNNING)
 		{
 			// Input polling
 			//
@@ -72,14 +72,14 @@ namespace Engine
 		}
 	}
 
-	bool Game::OnInit()
+	bool App::OnInit()
 	{
 		// Init the external dependencies
 		//
 		bool success = SDLInit() && GlewInit();
 		if (!success)
 		{
-			m_state = GameState::INIT_FAILED;
+			m_state = AppState::INIT_FAILED;
 			return false;
 		}
 
@@ -89,12 +89,12 @@ namespace Engine
 
 		// Change game state
 		//
-		m_state = GameState::INIT_SUCCESSFUL;
+		m_state = AppState::INIT_SUCCESSFUL;
 
 		return true;
 	}	
 
-	void Game::CreateAsteroid(Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x, float y)
+	void App::CreateAsteroid(Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x, float y)
 	{
 		for (int i = 0; i < amount; ++i)
 		{
@@ -129,14 +129,14 @@ namespace Engine
 		}
 	}
 
-	void Game::CreateBullet()
+	void App::CreateBullet()
 	{
 		Asteroids::Bullet* pBullet = m_player->Shoot();	
 		m_entities.push_back(pBullet);
 		m_bullets.push_back(pBullet);
 	}
 
-	void Game::CreateDebris(Asteroids::Entity* entity)
+	void App::CreateDebris(Asteroids::Entity* entity)
 	{
 		auto currentAsteroid = dynamic_cast < Asteroids::Asteroid* >(entity);
 		if (currentAsteroid != nullptr
@@ -151,7 +151,7 @@ namespace Engine
 		}
 	}
 
-	void Game::CleanEntities()
+	void App::CleanEntities()
 	{
 		auto iter = std::find_if(m_entities.begin(), m_entities.end(),
 			[&](Asteroids::Entity* actor) { return actor->IsColliding() || actor->IsDisappearing(); });
@@ -161,7 +161,7 @@ namespace Engine
 		}
 	}
 
-	void Game::CheckCollision()
+	void App::CheckCollision()
 	{
 		for (std::list< Asteroids::Asteroid* >::iterator asteroid = m_asteroids.begin(); asteroid != m_asteroids.end(); ++asteroid)
 		{
@@ -186,13 +186,13 @@ namespace Engine
 		}
 	}
 
-	void Game::RespawnPlayer()
+	void App::RespawnPlayer()
 	{
 		m_player = new Asteroids::Player();
 		m_entities.push_back(m_player);
 	}
 
-	void Game::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
+	void App::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
 	{		
 		switch (keyBoardEvent.keysym.scancode)
 		{
@@ -208,7 +208,7 @@ namespace Engine
 		}
 	}
 
-	void Game::OnKeyUp(SDL_KeyboardEvent keyBoardEvent)
+	void App::OnKeyUp(SDL_KeyboardEvent keyBoardEvent)
 	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
@@ -237,7 +237,7 @@ namespace Engine
 		}
 	}
 
-	void Game::OnUpdate()
+	void App::OnUpdate()
 	{
 		if (up)
 			m_player->MoveUp();
@@ -271,7 +271,7 @@ namespace Engine
 		m_nUpdates++;
 	}
 
-	void Game::OnRender()
+	void App::OnRender()
 	{
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
@@ -290,7 +290,7 @@ namespace Engine
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
 
-	void Game::DestroyEntity(Asteroids::Entity* entity)
+	void App::DestroyEntity(Asteroids::Entity* entity)
 	{		
 		// Retrieve actor from m_actors list
 		//
@@ -333,7 +333,7 @@ namespace Engine
 		}
 	}
 
-	bool Game::SDLInit()
+	bool App::SDLInit()
 	{
 		// Initialize SDL's Video subsystem
 		//
@@ -375,7 +375,7 @@ namespace Engine
 		return true;
 	}
 
-	void Game::SetupViewport()
+	void App::SetupViewport()
 	{
 		// Defining ortho values
 		//
@@ -400,7 +400,7 @@ namespace Engine
 		glMatrixMode(GL_MODELVIEW);
 	}
 
-	bool Game::GlewInit()
+	bool App::GlewInit()
 	{
 		GLenum err = glewInit();
 		if (GLEW_OK != err)
@@ -412,7 +412,7 @@ namespace Engine
 		return true;
 	}
 
-	void Game::CleanupSDL()
+	void App::CleanupSDL()
 	{
 		// Cleanup
 		//
@@ -422,7 +422,7 @@ namespace Engine
 		SDL_Quit();
 	}
 
-	void Game::OnResize(int width, int height)
+	void App::OnResize(int width, int height)
 	{
 		// TODO: Add resize functionality
 		//
@@ -432,11 +432,11 @@ namespace Engine
 		SetupViewport();
 	}
 
-	void Game::OnExit()
+	void App::OnExit()
 	{
 		// Exit main for loop
 		//
-		m_state = GameState::QUIT;
+		m_state = AppState::QUIT;
 
 		// Cleanup SDL pointers
 		//

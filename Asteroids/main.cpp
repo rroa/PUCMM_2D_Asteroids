@@ -8,7 +8,7 @@
 #include <iostream>
 
 // 
-#include "Game.hpp"
+#include "App.hpp"
 
 const int WIDTH = 1136;
 const int HEIGHT = 640;
@@ -25,11 +25,11 @@ int main(int argc, char* argv[])
 
 	// Create Game Object
 	//
-	Engine::Game* game = new Engine::Game("Asteroids!", WIDTH, HEIGHT);
+	Engine::App* app = new Engine::App("Asteroids!", WIDTH, HEIGHT);
 
 	// Initialize game
 	//
-	if(!game->OnInit())
+	if(!app->OnInit())
 	{
 		std::cout << "Game Init error!\n";
 		return -1;
@@ -37,11 +37,11 @@ int main(int argc, char* argv[])
 
 	// Execute game
 	//
-	game->OnExecute();
+	app->OnExecute();
 
 	// Delete game object
 	//
-	delete game;
+	delete app;
 
 	return 0;
 }
