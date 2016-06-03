@@ -208,6 +208,9 @@ namespace Engine
 		case SDL_SCANCODE_D:
 			right = true;
 			break;
+		default:
+			//DO NOTHING
+			break;
 		}
 	}
 
@@ -242,6 +245,9 @@ namespace Engine
 			break;
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
+			break;
+		default:
+			//DO NOTHING
 			break;
 		}
 	}

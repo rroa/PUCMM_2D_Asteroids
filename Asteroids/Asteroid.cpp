@@ -2,6 +2,7 @@
 
 #include <SDL2/SDL_opengl.h>
 #include <cmath>
+#include <cstdlib>
 
 namespace Asteroids
 {
@@ -33,7 +34,7 @@ namespace Asteroids
 			// TODO: RR: Move this to a rand in range function
 			const float randDist = min + (max - min) * (rand() / (float)RAND_MAX);
 
-			m_points.push_back(Engine::Vector2(std::sinf(radians) * randDist, std::cosf(radians) * randDist));
+			m_points.push_back(Engine::Vector2(sinf(radians) * randDist, cosf(radians) * randDist));
 		}
 
 		m_radius = (min + max) * 0.5f;
