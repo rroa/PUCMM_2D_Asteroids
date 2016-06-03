@@ -35,6 +35,9 @@ namespace Engine
 		m_entities.push_back(m_player);
 		m_dimensions[0] = width;
 		m_dimensions[1] = height;
+
+		m_timer = new TimeManager;
+		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
 	}
 
 	Game::~Game()
@@ -225,11 +228,17 @@ namespace Engine
 			RespawnPlayer();
 			break;
 		case SDL_SCANCODE_TAB:
-			m_player->ChangeShip();
+			if (m_player)
+			{
+				m_player->ChangeShip();
+			}
 			break;
 		case SDL_SCANCODE_SPACE:
 			//
-			CreateBullet();
+			if (m_player)
+			{
+				CreateBullet();
+			}
 			break;
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
@@ -239,12 +248,7 @@ namespace Engine
 
 	void Game::OnUpdate()
 	{
-		if (up)
-			m_player->MoveUp();
-		if (left)
-			m_player->RotateLeft(DESIRED_FRAME_TIME);
-		if (right)
-			m_player->RotateRight(DESIRED_FRAME_TIME);
+		double startTime = m_timer->GetElapsedTimeInSeconds();
 
 		// Updating the entities
 		//
@@ -257,6 +261,13 @@ namespace Engine
 
 		if(m_player)
 		{
+			if (up)
+				m_player->MoveUp();
+			if (left)
+				m_player->RotateLeft(DESIRED_FRAME_TIME);
+			if (right)
+				m_player->RotateRight(DESIRED_FRAME_TIME);
+
 			m_player->Update(DESIRED_FRAME_TIME, m_width, m_height);
 
 			// Checking collision between the entities
@@ -267,6 +278,19 @@ namespace Engine
 			//
 			CleanEntities();
 		}
+
+		double endTime = m_timer->GetElapsedTimeInSeconds();
+		double nextTimeFrame = startTime + DESIRED_FRAME_TIME;
+
+		while (endTime < nextTimeFrame)
+		{
+			// Spin lock
+			endTime = m_timer->GetElapsedTimeInSeconds();
+		}
+
+		//double elapsedTime = endTime - startTime;        
+
+		m_lastFrameTime = m_timer->GetElapsedTimeInSeconds();
 
 		m_nUpdates++;
 	}
@@ -370,7 +394,7 @@ namespace Engine
 		SDL_GL_MakeCurrent(m_mainWindow, m_context);
 
 		// Make double buffer interval synced with vertical scanline refresh
-		SDL_GL_SetSwapInterval(1);
+		SDL_GL_SetSwapInterval(0);
 
 		return true;
 	}
