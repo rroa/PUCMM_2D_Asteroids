@@ -1,5 +1,6 @@
 #include "Game.hpp"
 #include <iostream>
+#include <algorithm>
 
 // OpenGL includes
 #include <GL/glew.h>
@@ -205,6 +206,13 @@ namespace Engine
 			++bul;
 		}
 
+		auto iter = std::find_if(m_bullets.begin(), m_bullets.end(),
+			[&](Asteroids::Entity* actor) { return actor->IsColliding() || actor->IsDisappearing(); });
+		if (iter != m_bullets.end())
+		{
+			DestroyEntity(*iter);
+		}
+
 		m_nUpdates++;
 	}
 
@@ -232,6 +240,33 @@ namespace Engine
 		}
 
 		SDL_GL_SwapWindow(m_mainWindow);
+	}
+
+	void Game::DestroyEntity(Asteroids::Entity* entity)
+	{		
+		// Retrieve actor from m_asteroids list
+		//
+		auto asteroidsResult = std::find(m_asteroids.begin(), m_asteroids.end(), entity);
+
+		// Retrieve actor from m_bullets list
+		//
+		auto bulletsResult = std::find(m_bullets.begin(), m_bullets.end(), entity);
+
+		// Removing the allocated pointer
+		//
+		delete entity;
+
+		// Deleting actor iterator from lists
+		//
+		if (m_asteroids.size() > 0 && asteroidsResult != m_asteroids.end())
+		{
+			m_asteroids.erase(asteroidsResult);
+		}
+
+		if (m_bullets.size() > 0 && bulletsResult != m_bullets.end())
+		{
+			m_bullets.erase(bulletsResult);
+		}
 	}
 
 	bool Game::SDLInit()

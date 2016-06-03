@@ -25,7 +25,7 @@ namespace Asteroids
 		}
 		else
 		{ 
-			// TODO: RR: Change actor to delete state
+			m_state = EntityState::State::DELETED;
 		}
 
 		Entity::Update(deltaTime, worldWidth, worldHeight);

@@ -56,6 +56,7 @@ namespace Engine
 		void OnExit							( ) override;
 		void CreateAsteroid					( Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x = 0.0f, float y = 0.0f );
 		void CreateBullet					( );
+		void DestroyEntity					( Asteroids::Entity* entity );
 
 		/* =============================================================
 		 * MEMBERS
