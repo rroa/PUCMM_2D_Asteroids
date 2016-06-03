@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include "Asteroid.hpp"
 
 #include <SDL2/SDL_opengl.h>
@@ -8,10 +10,6 @@ namespace Asteroids
 	const size_t NUM_POINTS = 16;
 	const float MIN_SIZE = 25.0f;
 	const float MAX_SIZE = 45.0f;
-
-	// TODO: RR: Move this to an utility class
-	//
-	const float PI = 3.141592653f;
 
 	Asteroid::Asteroid(AsteroidSize::Size size)
 		: m_size(size)
@@ -29,7 +27,7 @@ namespace Asteroids
 
 		for (size_t i = 0; i < NUM_POINTS; ++i)
 		{
-			const float radians = (i / (float)NUM_POINTS) * 2.0f * PI;
+			const float radians = (i / (float)NUM_POINTS) * 2.0f * M_PI;
 			// TODO: RR: Move this to a rand in range function
 			const float randDist = min + (max - min) * (rand() / (float)RAND_MAX);
 
@@ -52,8 +50,8 @@ namespace Asteroids
 	{
 		if (m_mass > 0)
 		{
-			m_velocity.x += (impulse.x / m_mass) * cosf(m_rotation * (PI / 180)) + m_sizeFactor;
-			m_velocity.y += (impulse.y / m_mass) * sinf(m_rotation * (PI / 180)) + m_sizeFactor;
+			m_velocity.x += (impulse.x / m_mass) * cosf(m_rotation * (M_PI / 180)) + m_sizeFactor;
+			m_velocity.y += (impulse.y / m_mass) * sinf(m_rotation * (M_PI / 180)) + m_sizeFactor;
 		}
 	}
 

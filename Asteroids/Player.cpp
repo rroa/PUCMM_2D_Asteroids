@@ -1,3 +1,5 @@
+#define _USE_MATH_DEFINES
+
 #include "Player.hpp"
 #include <SDL2/SDL_opengl.h>
 #include <cmath>
@@ -9,15 +11,6 @@ namespace Asteroids
 	const float THRUST = 3.0f;
 	const float ANGLE_OFFSET = 90.f;
 	const float BULLET_SPEED = 250.f;
-	const float PI = 3.141592653f;
-
-	/*
-	 * const float DRAG_FORCE = 0.999f;
-     * const float MAX_VELOCITY = 350.0f;
-     * const float THRUST = 3.0f;
-     * const float ANGLE_OFFSET = 90.f;
-     * const float BULLET_SPEED = 250.f;
-	 */
 
 	Player::Player()
 		: m_angle(0.0f)
@@ -42,8 +35,8 @@ namespace Asteroids
 	{
 		if (m_mass > 0)
 		{
-			m_velocity.x += (impulse.x / m_mass) * cosf((m_angle + ANGLE_OFFSET) * (PI / 180));
-			m_velocity.y += (impulse.y / m_mass) * sinf((m_angle + ANGLE_OFFSET) * (PI / 180));
+			m_velocity.x += (impulse.x / m_mass) * cosf((m_angle + ANGLE_OFFSET) * (M_PI / 180));
+			m_velocity.y += (impulse.y / m_mass) * sinf((m_angle + ANGLE_OFFSET) * (M_PI / 180));
 		}
 	}	
 
@@ -199,11 +192,11 @@ namespace Asteroids
 	Asteroids::Bullet* Player::Shoot()
 	{
 		float shootingAngle = m_angle + ANGLE_OFFSET;
-		float bulletX = m_points[1].x * cosf(shootingAngle * ( PI / 180 ));
-		float bulletY = m_points[1].y * sinf(shootingAngle * ( PI / 180 ));
+		float bulletX = m_points[1].x * cosf(shootingAngle * (M_PI / 180 ));
+		float bulletY = m_points[1].y * sinf(shootingAngle * (M_PI / 180 ));
 
-		float vx = (m_currentSpeed + BULLET_SPEED) * cosf(shootingAngle * (PI / 180));
-		float vy = (m_currentSpeed + BULLET_SPEED) * sinf(shootingAngle * (PI / 180));
+		float vx = (m_currentSpeed + BULLET_SPEED) * cosf(shootingAngle * (M_PI / 180));
+		float vy = (m_currentSpeed + BULLET_SPEED) * sinf(shootingAngle * (M_PI / 180));
 
 		Bullet* bullet = new Bullet();
 
