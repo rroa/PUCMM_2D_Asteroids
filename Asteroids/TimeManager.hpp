@@ -3,9 +3,9 @@
 #ifndef TIME_MANAGER_HPP
 #define TIME_MANAGER_HPP
 
-#ifdef WIN32 && WIN64   // Windows system specific
+#if defined(_WIN32) || defined(_WIN64)   // Windows system specific
 #include <windows.h>
-#else          // Unix based system specific
+#else					// Unix based system specific
 #include <sys/time.h>
 #endif
 
