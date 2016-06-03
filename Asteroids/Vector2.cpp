@@ -1,5 +1,7 @@
 #include "Vector2.hpp"
 
+#include <cmath>
+
 namespace Engine
 {
 	Vector2::Vector2()
@@ -12,7 +14,68 @@ namespace Engine
 		, y( _y )
 	{}
 
-	// operators
+	Vector2::Vector2(const Vector2& other)
+		: x(other.x)
+		, y(other.y)
+		, length(other.length)
+	{}
+
+	float Vector2::Normalize()
+	{
+		// Calculating the length
+		CalcLength();
+
+		float inverseScale = 1.0f / length;
+		x *= inverseScale;
+		y *= inverseScale;
+
+		return length;
+	}
+
+	float Vector2::CalcLength()
+	{
+		float lenSquared = x * x + y * y;
+		if (lenSquared == 0)
+		{
+			length = 0.0f;
+			return length;
+		}
+
+		length = std::sqrtf(lenSquared);
+
+		return length;
+	}
+
+	float Vector2::CalcLengthSquared()
+	{
+		float lenSquared = x * x + y * y;
+		if (lenSquared == 0) return 0.0f;
+
+		return lenSquared;
+	}
+
+	void Vector2::Scale(float scaleUnit)
+	{
+		x *= scaleUnit;
+		y *= scaleUnit;
+	}
+
+	float Vector2::SetLength(float newLength)
+	{
+		float oldLen = length;
+		float lenSquared = x * x + y * y;
+		if (lenSquared == 0) return 0.0f;
+
+		// Calculating new length
+		length = std::sqrtf(lenSquared);
+
+		float inverseScale = newLength / length;
+		x *= inverseScale;
+		y *= inverseScale;
+
+		return oldLen;
+	}
+
 	Vector2& Vector2::operator=(const Vector2& rhs)
 	{
 		// Prevent self assignment. Two objects

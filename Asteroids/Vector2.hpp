@@ -8,26 +8,47 @@ namespace Engine
 	class Vector2
 	{
 	public:
-		// operators
-		Vector2& operator=(const Vector2& rhs);
-		Vector2& operator+=(const Vector2& rhs);
-		Vector2& operator-=(const Vector2& rhs);
-		Vector2& operator*=(const Vector2& rhs);
-		Vector2& operator/=(const Vector2& rhs);
-		Vector2 operator+(const Vector2& rhs);
-		Vector2 operator-(const Vector2& rhs);
-		Vector2 operator-();
-		Vector2 operator*(const Vector2& rhs);
-		Vector2 operator/(const Vector2& rhs);
-		bool operator==(const Vector2& rhs);
-		bool operator!=(const Vector2& rhs);
-		friend Vector2 operator*(float scaleUnit, const Vector2& rhs);
-		friend Vector2 operator*(const Vector2& lhs, float scaleUnit);
+		/* =============================================================
+		* PUBLIC FUNCTIONS
+		* ============================================================= */
+		explicit Vector2			( );
+		explicit Vector2			( float x, float y );
+		Vector2						( const Vector2& other );
 
-		explicit Vector2();
-		explicit Vector2(float x, float y);
-		float x;
-		float y;
+		float Normalize				( );
+		float CalcLength			( );
+		float CalcLengthSquared		( );
+		void Scale					( float scaleUnit );
+		float SetLength				( float newLength );
+
+		/* =============================================================
+		* OPERATOR OVERLOADS
+		* ============================================================= */
+		Vector2& operator=			( const Vector2& rhs );
+		Vector2& operator+=			( const Vector2& rhs );
+		Vector2& operator-=			( const Vector2& rhs );
+		Vector2& operator*=			( const Vector2& rhs );
+		Vector2& operator/=			( const Vector2& rhs );
+		Vector2 operator+			( const Vector2& rhs );
+		Vector2 operator-			( const Vector2& rhs );
+		Vector2 operator-			();
+		Vector2 operator*			( const Vector2& rhs );
+		Vector2 operator/			( const Vector2& rhs );
+		bool operator==				( const Vector2& rhs );
+		bool operator!=				( const Vector2& rhs );
+
+		/* =============================================================
+		* FRIENDS
+		* ============================================================= */
+		friend Vector2 operator*	( float scaleUnit, const Vector2& rhs );
+		friend Vector2 operator*	( const Vector2& lhs, float scaleUnit );
+
+		/* =============================================================
+		* MEMBERS
+		* ============================================================= */
+		float						x;
+		float						y;
+		float						length;
 	};
 }
  

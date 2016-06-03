@@ -23,6 +23,15 @@
     <Filter Include="Game\Source Files">
       <UniqueIdentifier>{0a9b5821-c2df-4cc3-b5f5-77e14ee0a647}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Core\Math">
+      <UniqueIdentifier>{c6e86d63-4abd-4f75-993e-87e976473f53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math\Header Files">
+      <UniqueIdentifier>{8da6bbad-fe7a-4276-9b34-dc273318554b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core\Math\Source Files">
+      <UniqueIdentifier>{7f08f66f-33fa-432e-a9ca-5355576a633f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
@@ -35,9 +44,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Game\Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Vector2.cpp">
-      <Filter>Core\Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Asteroid.cpp">
       <Filter>Game\Source Files</Filter>
     </ClCompile>
@@ -46,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="App.cpp">
       <Filter>Core\Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Vector2.cpp">
+      <Filter>Core\Math\Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -58,9 +67,6 @@
     <ClInclude Include="Player.hpp">
       <Filter>Game\Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Vector2.hpp">
-      <Filter>Core\Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Asteroid.hpp">
       <Filter>Game\Header Files</Filter>
     </ClInclude>
@@ -69,6 +75,9 @@
     </ClInclude>
     <ClInclude Include="App.hpp">
       <Filter>Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vector2.hpp">
+      <Filter>Core\Math\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
