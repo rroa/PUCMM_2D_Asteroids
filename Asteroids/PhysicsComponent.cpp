@@ -2,17 +2,18 @@
 
 namespace Engine
 {
+	const std::string COMP_NAME = "PHYSICS_COMPONENT";
 	PhysicsComponent::PhysicsComponent()
-		: Component("PHYSICS_COMPONENT")
-		, m_gravity(1.0f)
+		: Component(COMP_NAME)
+		, m_gravity(0.0f, 0.0f)
 		, m_mass(1.0f)
 		, m_dragFactor(1.0f)
 	{}
 
-	PhysicsComponent::PhysicsComponent(float gravity, float mass, float dragFactor)
-		: Component("PHYSICS_COMPONENT")
+	PhysicsComponent::PhysicsComponent(Vector2 gravity, float mass, float dragFactor)
+		: Component(COMP_NAME)
 		, m_gravity(gravity)
-		, m_mass(gravity)
+		, m_mass(mass)
 		, m_dragFactor(dragFactor)
 	{}
 
@@ -21,7 +22,7 @@ namespace Engine
 
 	void PhysicsComponent::Update(float deltaTime)
 	{
-
+		m_velocity += m_gravity;
 
 		// Base class function call
 		//

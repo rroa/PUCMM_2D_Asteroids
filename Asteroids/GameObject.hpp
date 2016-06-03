@@ -19,20 +19,39 @@ namespace Engine
 		* ============================================================= */
 		GameObject									( );
 		~GameObject									( );
-		void AttachComponent						( Component* );
-		void RemoveComponent						( Component* );
+		void AttachComponent						( Component*  );
+		void RemoveComponent						( Component*  );
+		void AddChild								( GameObject* );
+		void RemoveChild							( GameObject* );
 		void Update									( float deltaTime );
 
 		/* =============================================================
 		* INLINE FUNCTIONS
 		* ============================================================= */
 		inline std::vector<Component*>GetComponents	( ) { return m_components; }
+
+		template<typename T>
+		T* GetComponent()
+		{
+			std::vector< Component* >::iterator comp = m_components.begin();
+			for (; comp != m_components.end(); ++comp)
+			{
+				T* theComponent = dynamic_cast<T*>(*comp);
+				if (theComponent)
+				{
+					return theComponent;
+				}
+			}
+
+			return nullptr;
+		}
 	protected:
 		/* =============================================================
 		* MEMBERS
 		* ============================================================= */
 		std::vector<Component*>						m_components;
 		Scene*										m_scene;
+		std::vector<GameObject*>					m_children;
 	};
 }
 

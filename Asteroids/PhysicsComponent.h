@@ -14,7 +14,7 @@ namespace Engine
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
 		PhysicsComponent			( );
-		PhysicsComponent			( float gravity, float mass = 1.0f, float dragFactor = 1.0f );
+		PhysicsComponent			( Vector2 gravity, float mass = 1.0f, float dragFactor = 1.0f );
 		~PhysicsComponent			( );
 		void Update					( float deltaTime );
 
@@ -29,7 +29,7 @@ namespace Engine
 		* ============================================================= */
 		float						m_mass;
 		float						m_dragFactor;
-		float						m_gravity;
+		Vector2						m_gravity;
 		Vector2						m_velocity;
 	};
 }

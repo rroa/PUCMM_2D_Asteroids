@@ -5,9 +5,11 @@
 #include "Vector2.hpp"
 #include "Vector3.hpp"
 
+#include "Component.hpp"
+
 namespace Engine
 {
-	class TransformationComponent
+	class TransformationComponent : public Component
 	{
 	public:
 		TransformationComponent();

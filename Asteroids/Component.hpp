@@ -25,6 +25,7 @@ namespace Engine
 		* ============================================================= */
 		inline void SetOwner			( GameObject* owner ) { m_owner = owner; }
 		inline GameObject* GetOwner		( ) { return m_owner; }
+		inline std::string GetName		( ) { return m_name; }
 	protected:
 		/* =============================================================
 		* MEMBERS

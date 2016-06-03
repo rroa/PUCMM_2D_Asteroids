@@ -9,6 +9,11 @@
 
 // 
 #include "App.hpp"
+#include "GameObject.hpp"
+#include "Component.hpp"
+#include "PhysicsComponent.h"
+#include "CollisionComponent.hpp"
+#include "TransformationComponent.hpp"
 
 const int WIDTH = 1136;
 const int HEIGHT = 640;
@@ -25,23 +30,46 @@ int main(int argc, char* argv[])
 
 	// Create Game Object
 	//
-	Engine::App* app = new Engine::App("Asteroids!", WIDTH, HEIGHT);
+	//Engine::App* app = new Engine::App("Asteroids!", WIDTH, HEIGHT);
 
-	// Initialize game
-	//
-	if(!app->OnInit())
+	//// Initialize game
+	////
+	//if(!app->OnInit())
+	//{
+	//	std::cout << "Game Init error!\n";
+	//	return -1;
+	//}
+
+	//// Execute game
+	////
+	//app->OnExecute();
+
+	//// Delete game object
+	////
+	//delete app;
+
+	Engine::GameObject* go = new Engine::GameObject();
+	Engine::PhysicsComponent* pc = new Engine::PhysicsComponent();
+	Engine::CollisionComponent* cc = new Engine::CollisionComponent();
+	Engine::TransformationComponent* tc = new Engine::TransformationComponent();
+
+	go->AttachComponent(pc);
+	go->AttachComponent(cc);
+	go->AttachComponent(tc);
+
+	Engine::PhysicsComponent* rt = go->GetComponent<Engine::PhysicsComponent>();
+	assert(rt);
+	if (rt)
 	{
-		std::cout << "Game Init error!\n";
-		return -1;
+		std::cout << rt->GetName() << std::endl;
+		std::cout << rt->GetMass() << std::endl;
 	}
 
-	// Execute game
-	//
-	app->OnExecute();
+	std::cin.get();
 
-	// Delete game object
-	//
-	delete app;
+	delete go;
+
+
 
 	return 0;
 }
