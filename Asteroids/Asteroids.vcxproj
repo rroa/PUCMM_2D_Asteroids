@@ -172,21 +172,33 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
   <ItemGroup>
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="App.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PhysicsComponent.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDLEvent.cpp" />
     <ClCompile Include="Vector2.cpp" />
+    <ClCompile Include="Vector3.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroid.hpp" />
     <ClInclude Include="Bullet.hpp" />
+    <ClInclude Include="Component.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="App.hpp" />
+    <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="IRender.h" />
+    <ClInclude Include="IUpdate.h" />
+    <ClInclude Include="PhysicsComponent.h" />
     <ClInclude Include="Player.hpp" />
+    <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SDLEvent.hpp" />
     <ClInclude Include="Vector2.hpp" />
+    <ClInclude Include="Vector3.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
