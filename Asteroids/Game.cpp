@@ -124,6 +124,12 @@ namespace Engine
 		}
 	}
 
+	void Game::CreateBullet()
+	{
+		Asteroids::Bullet* pBullet = m_player->Shoot();		
+		m_bullets.push_back(pBullet);
+	}
+
 	void Game::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
 	{		
 		switch (keyBoardEvent.keysym.scancode)
@@ -145,6 +151,7 @@ namespace Engine
 			break;
 		case SDL_SCANCODE_SPACE:
 			//
+			CreateBullet();
 			break;
 		}
 	}
@@ -191,6 +198,13 @@ namespace Engine
 			++ait;
 		}
 
+		std::list< Asteroids::Bullet* >::iterator bul = m_bullets.begin();
+		while (bul != m_bullets.end())
+		{
+			(*bul)->Update(DESIRED_FRAME_TIME, m_width, m_height);
+			++bul;
+		}
+
 		m_nUpdates++;
 	}
 
@@ -208,6 +222,13 @@ namespace Engine
 		{
 			(*ait)->Render();
 			++ait;
+		}
+
+		std::list< Asteroids::Bullet* >::iterator bul = m_bullets.begin();
+		while (bul != m_bullets.end())
+		{
+			(*bul)->Render();
+			++bul;
 		}
 
 		SDL_GL_SwapWindow(m_mainWindow);

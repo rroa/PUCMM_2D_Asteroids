@@ -44,6 +44,9 @@
     <ClCompile Include="Asteroid.cpp">
       <Filter>Game\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Bullet.cpp">
+      <Filter>Game\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -62,6 +65,9 @@
       <Filter>Core\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Asteroid.hpp">
+      <Filter>Game\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Bullet.hpp">
       <Filter>Game\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

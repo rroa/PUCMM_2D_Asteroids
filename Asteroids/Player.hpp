@@ -8,6 +8,7 @@
 // Asteroids
 #include "Vector2.hpp"
 #include "Entity.hpp"
+#include "Bullet.hpp"
 
 namespace Asteroids
 {
@@ -28,6 +29,7 @@ namespace Asteroids
 		void RotateRight				( float deltaTime );
 		void RotateLeft					( float deltaTime );
 		void ChangeShip					( );
+		Asteroids::Bullet* Shoot();
 	private:
 		/* =============================================================
 		* MEMBERS

@@ -8,6 +8,7 @@ namespace Asteroids
 	const float MAX_VELOCITY = 350.0f;
 	const float THRUST = 3.0f;
 	const float ANGLE_OFFSET = 90.f;
+	const float BULLET_SPEED = 250.f;
 	const float PI = 3.141592653f;
 
 	/*
@@ -191,5 +192,22 @@ namespace Asteroids
 		}
 		
 		glEnd();
+	}
+
+	Asteroids::Bullet* Player::Shoot()
+	{
+		float shootingAngle = m_angle + ANGLE_OFFSET;
+		float bulletX = m_points[1].x * cosf(shootingAngle * ( PI / 180 ));
+		float bulletY = m_points[1].y * sinf(shootingAngle * ( PI / 180 ));
+
+		float vx = (m_currentSpeed + BULLET_SPEED) * cosf(shootingAngle * (PI / 180));
+		float vy = (m_currentSpeed + BULLET_SPEED) * sinf(shootingAngle * (PI / 180));
+
+		Bullet* bullet = new Bullet();
+
+		bullet->Teleport(m_position.x + bulletX, m_position.y + bulletY);
+		bullet->ApplyImpulse(Engine::Vector2(vx, vy));
+
+		return bullet;
 	}
 }

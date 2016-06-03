@@ -10,6 +10,7 @@
 #include "SDLEvent.hpp"
 #include "Player.hpp"
 #include "Asteroid.hpp"
+#include "Bullet.hpp"
 
 namespace Engine
 {
@@ -54,6 +55,7 @@ namespace Engine
 		void OnResize						( int width, int height ) override;
 		void OnExit							( ) override;
 		void CreateAsteroid					( Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x = 0.0f, float y = 0.0f );
+		void CreateBullet					( );
 
 		/* =============================================================
 		 * MEMBERS
@@ -67,6 +69,7 @@ namespace Engine
 		int									m_nUpdates;
 		Asteroids::Player*					m_player;
 		std::list< Asteroids::Asteroid* >	m_asteroids;
+		std::list< Asteroids::Bullet* >		m_bullets;
 	};
 }
 #endif /* GAME_HPP */
