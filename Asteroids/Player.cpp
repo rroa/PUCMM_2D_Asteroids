@@ -8,6 +8,7 @@ namespace Asteroids
 	const float MAX_VELOCITY = 350.0f;
 	const float THRUST = 3.0f;
 	const float ANGLE_OFFSET = 90.f;
+	const float BULLET_SPEED = 250.f;
 	const float PI = 3.141592653f;
 
 	/*
@@ -23,9 +24,17 @@ namespace Asteroids
 		, m_rotation(250)
 		, m_currentShip(-1)
 	{
+		m_mass = 0.5f;
+		m_radius = 10.0f;
+
 		// Set model render vertices (default ship)
 		//
-		ChangeShip();
+		RenderShip();
+	}
+
+	Player::~Player()
+	{
+
 	}
 
 	void Player::ApplyDrag()
@@ -58,16 +67,16 @@ namespace Asteroids
 		m_angle += m_rotation * (deltaTime);
 	}
 
-	void Player::ChangeShip()
+	void Player::RenderShip()
 	{
-		m_currentShip = ++m_currentShip % 3;
+		m_currentShip++;
+		m_currentShip = m_currentShip % 3;
 		m_points.clear();
 
 		switch (m_currentShip)
 		{
 		case 1:
 			// Millennium Falcon
-			//
 			m_points.push_back(Engine::Vector2(0.0f, 23.0f));
 			m_points.push_back(Engine::Vector2(3.0f, 23.0f));
 			m_points.push_back(Engine::Vector2(3.0f, 1.0f));
@@ -176,7 +185,7 @@ namespace Asteroids
 			break;
 		case 2:
 			// USS Enterprise
-			//
+
 			m_points.push_back(Engine::Vector2(0.0f, 35.0f));
 			m_points.push_back(Engine::Vector2(5.0f, 34.0f));
 			m_points.push_back(Engine::Vector2(9.0f, 31.0f));
@@ -301,5 +310,22 @@ namespace Asteroids
 		}
 		
 		glEnd();
+	}
+
+	Asteroids::Bullet* Player::Shoot()
+	{
+		float shootingAngle = m_angle + ANGLE_OFFSET;
+		float bulletX = m_points[1].x * cosf(shootingAngle * ( PI / 180 ));
+		float bulletY = m_points[1].y * sinf(shootingAngle * ( PI / 180 ));
+
+		float vx = (m_currentSpeed + BULLET_SPEED) * cosf(shootingAngle * (PI / 180));
+		float vy = (m_currentSpeed + BULLET_SPEED) * sinf(shootingAngle * (PI / 180));
+
+		Bullet* bullet = new Bullet();
+
+		bullet->Teleport(m_position.x + bulletX, m_position.y + bulletY);
+		bullet->ApplyImpulse(Engine::Vector2(vx, vy));
+
+		return bullet;
 	}
 }
