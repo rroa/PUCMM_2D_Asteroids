@@ -27,7 +27,8 @@ namespace Engine
 		: m_title(title),
 		m_width(width),
 		m_height(height),
-		m_nUpdates(0)
+		m_nUpdates(0),
+		m_score(0)
 	{
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
@@ -164,6 +165,13 @@ namespace Engine
 		}
 	}
 
+	void Game::UpdateScore(int delta)
+	{
+		m_score += delta;
+		std::cout << "Your new score is " << m_score << std::endl;
+	}
+
+
 	void Game::CheckCollision()
 	{
 		for (std::list< Asteroids::Asteroid* >::iterator asteroid = m_asteroids.begin(); asteroid != m_asteroids.end(); ++asteroid)
@@ -181,6 +189,7 @@ namespace Engine
 					{
 						if ((*asteroid)->DetectCollision((*bullet)))
 						{
+							UpdateScore(10);
 							CreateDebris((*asteroid));
 						}
 					}
@@ -207,6 +216,9 @@ namespace Engine
 			break;		
 		case SDL_SCANCODE_D:
 			right = true;
+			break;
+		default:
+			//DO NOTHING
 			break;
 		}
 	}
@@ -242,6 +254,9 @@ namespace Engine
 			break;
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
+			break;
+		default:
+			//DO NOTHING
 			break;
 		}
 	}
