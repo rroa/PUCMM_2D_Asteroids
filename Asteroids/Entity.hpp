@@ -25,7 +25,8 @@ namespace Asteroids
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		Entity();
+		Entity						( );
+		virtual ~Entity				( );
 		virtual void ApplyImpulse	( Engine::Vector2 impulse ) = 0;
 		virtual void Update			( float deltaTime, int worldWidth, int worldHeight );
 		virtual void Render			( ) = 0;
