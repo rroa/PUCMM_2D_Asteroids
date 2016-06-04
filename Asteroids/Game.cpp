@@ -18,6 +18,9 @@ namespace Engine
 
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
+	int _remaniningAsteroids = 0;
+	Asteroids::Asteroid::AsteroidSize::Size _asteoridsToCreateSize = Asteroids::Asteroid::AsteroidSize::BIG;
+	int _asteoridsToCreateNumber = 1;
 	bool up = false;
 	bool left = false;
 	bool right = false;
@@ -57,7 +60,8 @@ namespace Engine
 		}
 
 		m_state = GameState::RUNNING;
-		CreateAsteroid(Asteroids::Asteroid::AsteroidSize::BIG, 1);
+
+		StartLevel();
 
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
@@ -130,6 +134,34 @@ namespace Engine
 
 			pAsteroid->ApplyImpulse(Engine::Vector2(x, y));
 		}
+	}
+
+	void Game::SetRemainingAsteroids()
+	{
+		switch (_asteoridsToCreateSize)
+		{
+		case Asteroids::Asteroid::AsteroidSize::BIG:
+			_remaniningAsteroids = _asteoridsToCreateNumber * 7;
+			break;
+		case Asteroids::Asteroid::AsteroidSize::MEDIUM:
+			_remaniningAsteroids = _asteoridsToCreateNumber * 2;
+			break;
+		case Asteroids::Asteroid::AsteroidSize::SMALL:
+		default:
+			_remaniningAsteroids = _asteoridsToCreateNumber;
+			break;
+		}
+
+		std::cout << "Level " << _asteoridsToCreateNumber << "!" << std::endl;
+		std::cout << _remaniningAsteroids << " remaining asteroids to destoy!" << std::endl;
+	}
+
+	void Game::StartLevel(bool levelUp)
+	{
+		if(levelUp) _asteoridsToCreateNumber++;
+
+		CreateAsteroid(_asteoridsToCreateSize, _asteoridsToCreateNumber);
+		SetRemainingAsteroids();
 	}
 
 	void Game::CreateBullet()
@@ -348,6 +380,21 @@ namespace Engine
 
 		if (m_asteroids.size() > 0 && asteroidsResult != m_asteroids.end())
 		{
+			if (_remaniningAsteroids > 0) 
+			{
+				_remaniningAsteroids--;
+
+				if (_remaniningAsteroids == 0) 
+				{
+					std::cout << std::endl << "There's no more asteroids to destoy!" << std::endl;
+					StartLevel(true);
+				}
+				else 
+				{
+					std::cout << _remaniningAsteroids << " remaining asteroids to destoy!" << std::endl;
+				}
+			}
+
 			m_asteroids.erase(asteroidsResult);
 		}
 

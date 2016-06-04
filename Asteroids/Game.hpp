@@ -62,6 +62,8 @@ namespace Engine
 		void CreateBullet					( );
 		void DestroyEntity					( Asteroids::Entity* entity );
 		void RespawnPlayer					( );
+		void SetRemainingAsteroids          ( );
+		void StartLevel						( bool levelUp = false );
 
 		/* =============================================================
 		 * MEMBERS
