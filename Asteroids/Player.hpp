@@ -19,6 +19,7 @@ namespace Asteroids
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
 		Player							( );
+		virtual ~Player					( );
 		void Update						( float deltaTime, int worldWidth, int worldHeight );
 		void Render						( );
 
@@ -28,7 +29,7 @@ namespace Asteroids
 		void MoveUp						( );
 		void RotateRight				( float deltaTime );
 		void RotateLeft					( float deltaTime );
-		void ChangeShip					( );
+		void RenderShip					( );
 		Asteroids::Bullet* Shoot();
 	private:
 		/* =============================================================

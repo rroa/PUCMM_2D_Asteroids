@@ -20,8 +20,8 @@ namespace Asteroids
 		/* =============================================================
 		* MEMBERS
 		* ============================================================= */
-		float					m_lifespan;
 		float					m_currentLifespan;
+		float					m_lifespan;
 	};
 }
 

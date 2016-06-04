@@ -24,11 +24,11 @@ namespace Engine
 	int  m_dimensions[2];
 
 	Game::Game(const std::string& title, const int width, const int height)
-		: m_title(title),
-		m_width(width),
+		:m_width(width),
 		m_height(height),
 		m_nUpdates(0),
-		m_score(0)
+		m_score(0),
+		m_title(title)
 	{
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
@@ -242,7 +242,7 @@ namespace Engine
 		case SDL_SCANCODE_TAB:
 			if (m_player)
 			{
-				m_player->ChangeShip();
+				m_player->RenderShip();
 			}
 			break;
 		case SDL_SCANCODE_SPACE:

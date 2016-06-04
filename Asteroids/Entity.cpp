@@ -22,6 +22,11 @@ namespace Asteroids
 		, m_state(EntityState::State::NORMAL)
 	{}
 
+	Entity::~Entity()
+	{
+
+	}
+
 	void Entity::Update(float deltaTime, int worldWidth, int worldHeight)
 	{
 		m_position.x += m_velocity.x * static_cast<float>(deltaTime);

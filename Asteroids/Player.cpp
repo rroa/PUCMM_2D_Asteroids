@@ -29,7 +29,12 @@ namespace Asteroids
 
 		// Set model render vertices (default ship)
 		//
-		ChangeShip();
+		RenderShip();
+	}
+
+	Player::~Player()
+	{
+
 	}
 
 	void Player::ApplyDrag()
@@ -62,9 +67,10 @@ namespace Asteroids
 		m_angle += m_rotation * (deltaTime);
 	}
 
-	void Player::ChangeShip()
+	void Player::RenderShip()
 	{
-		m_currentShip = ++m_currentShip % 3;
+		m_currentShip++;
+		m_currentShip = m_currentShip % 3;
 		m_points.clear();
 
 		switch (m_currentShip)
