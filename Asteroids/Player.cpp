@@ -7,8 +7,6 @@
 namespace Asteroids
 {
 	const float DRAG_FORCE = 0.999f;
-	const float MAX_VELOCITY = 350.0f;
-	const float THRUST = 3.0f;
 	const float ANGLE_OFFSET = 90.f;
 	const float BULLET_SPEED = 250.f;
 
@@ -17,9 +15,6 @@ namespace Asteroids
 		, m_rotation(250)
 		, m_currentShip(-1)
 	{
-		m_mass = 0.5f;
-		m_radius = 10.0f;
-
 		// Set model render vertices (default ship)
 		//
 		ChangeShip();
@@ -42,7 +37,7 @@ namespace Asteroids
 
 	void Player::MoveUp()
 	{
-		ApplyImpulse(Engine::Vector2(THRUST, THRUST));
+		ApplyImpulse(Engine::Vector2(m_thrust, m_thrust));
 	}
 
 	void Player::RotateRight(float deltaTime)
@@ -65,6 +60,11 @@ namespace Asteroids
 		case 1:
 			// Millennium Falcon
 			//
+			m_mass = 1.0f;
+			m_radius = 44.0f;
+			m_thrust = 4.0f;
+			m_max_velocity = 466.67;
+
 			m_points.push_back(Engine::Vector2(0.0f, 20.0f));
 			m_points.push_back(Engine::Vector2(4.0f, 20.0f));
 			m_points.push_back(Engine::Vector2(4.0f, 44.0f));
@@ -104,6 +104,11 @@ namespace Asteroids
 		case 2:
 			// USS Enterprise
 			//
+			m_mass = 2.0f;
+			m_radius = 40.0f;
+			m_thrust = 2.0f;
+			m_max_velocity = 233.33;
+
 			m_points.push_back(Engine::Vector2(0.0f, 40.0f));
 			m_points.push_back(Engine::Vector2(8.0f, 40.0f));
 			m_points.push_back(Engine::Vector2(12.0f, 36.0f));
@@ -145,6 +150,11 @@ namespace Asteroids
 		default:
 			// Original
 			//
+			m_mass = 0.5f;
+			m_radius = 20.0f;
+			m_thrust = 3.0f;
+			m_max_velocity = 350.0f;
+
 			m_points.push_back(Engine::Vector2(0.0f, 20.0f));
 			m_points.push_back(Engine::Vector2(12.0f, -10.0f));
 			m_points.push_back(Engine::Vector2(6.0f, -4.0f));
@@ -159,10 +169,10 @@ namespace Asteroids
 		float speed = 
 			fabs(sqrtf(m_velocity.x * m_velocity.x + m_velocity.y * m_velocity.y));
 
-		if (speed > MAX_VELOCITY)
+		if (speed > m_max_velocity)
 		{
-			m_velocity.x = (m_velocity.x / speed) * MAX_VELOCITY;
-			m_velocity.y = (m_velocity.y / speed) * MAX_VELOCITY;
+			m_velocity.x = (m_velocity.x / speed) * m_max_velocity;
+			m_velocity.y = (m_velocity.y / speed) * m_max_velocity;
 		}
 
 		m_currentSpeed = speed;

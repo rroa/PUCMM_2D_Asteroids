@@ -257,7 +257,10 @@ namespace Engine
 			right = false;
 			break;
 		case SDL_SCANCODE_R:
-			RespawnPlayer();
+			if (!m_player)
+			{
+				RespawnPlayer();
+			}
 			break;
 		case SDL_SCANCODE_TAB:
 			if (m_player)
