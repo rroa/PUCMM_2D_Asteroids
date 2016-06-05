@@ -10,8 +10,8 @@ namespace Asteroids
 	const float ANGLE_OFFSET = 90.f;
 	const float BULLET_SPEED = 250.f;
 
-	Player::Player()
-		: m_angle(0.0f)
+	Player::Player(float heightPercent) : Entity(heightPercent)
+		, m_angle(0.0f)
 		, m_rotation(250)
 		, m_currentShip(-1)
 	{
@@ -208,7 +208,7 @@ namespace Asteroids
 		float vx = (m_currentSpeed + BULLET_SPEED) * cosf(shootingAngle * (M_PI / 180));
 		float vy = (m_currentSpeed + BULLET_SPEED) * sinf(shootingAngle * (M_PI / 180));
 
-		Bullet* bullet = new Bullet();
+		Bullet* bullet = new Bullet(m_height_percent);
 
 		bullet->Teleport(m_position.x + bulletX, m_position.y + bulletY);
 		bullet->ApplyImpulse(Engine::Vector2(vx, vy));

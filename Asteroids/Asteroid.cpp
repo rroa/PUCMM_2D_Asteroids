@@ -11,8 +11,8 @@ namespace Asteroids
 	const float MIN_SIZE = 25.0f;
 	const float MAX_SIZE = 45.0f;
 
-	Asteroid::Asteroid(AsteroidSize::Size size)
-		: m_size(size)
+	Asteroid::Asteroid(AsteroidSize::Size size, float heightPercent) : Entity(heightPercent)
+		, m_size(size)
 		, m_angle(0.0f)
 		, m_rotation(120)
 	{

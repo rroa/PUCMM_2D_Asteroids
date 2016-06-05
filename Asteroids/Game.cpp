@@ -6,9 +6,6 @@
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 
-//
-#include "Player.hpp"
-
 namespace Engine
 {
 	inline float randInRange(float min, float max)
@@ -21,6 +18,9 @@ namespace Engine
 	int _remaniningAsteroids = 0;
 	Asteroids::Asteroid::AsteroidSize::Size _asteoridsToCreateSize = Asteroids::Asteroid::AsteroidSize::BIG;
 	int _asteoridsToCreateNumber = 1;
+	int _remainingLives = 3;
+	float m_game_height_percent = 0.9f;
+	float m_panel_height_percent = 0.1f;
 	bool up = false;
 	bool left = false;
 	bool right = false;
@@ -34,8 +34,10 @@ namespace Engine
 	{
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
-		m_player = new Asteroids::Player();
+		m_player = new Asteroids::Player(m_game_height_percent);
+		m_panel = new Asteroids::Panel(m_panel_height_percent);
 		m_entities.push_back(m_player);
+		m_entities.push_back(m_panel);
 		m_dimensions[0] = width;
 		m_dimensions[1] = height;
 
@@ -105,7 +107,7 @@ namespace Engine
 	{
 		for (int i = 0; i < amount; ++i)
 		{
-			Asteroids::Asteroid* pAsteroid = new Asteroids::Asteroid(size);
+			Asteroids::Asteroid* pAsteroid = new Asteroids::Asteroid(size, m_game_height_percent);
 			m_entities.push_back(pAsteroid);
 			m_asteroids.push_back(pAsteroid);
 
@@ -152,7 +154,8 @@ namespace Engine
 			break;
 		}
 
-		std::cout << "Level " << _asteoridsToCreateNumber << "!" << std::endl;
+		std::cout << std::endl << "Level " << _asteoridsToCreateNumber << "!" << std::endl;
+		std::cout << std::endl << "--- " << _remainingLives << " remaining lives ---" << std::endl;
 		std::cout << _remaniningAsteroids << " remaining asteroids to destoy!" << std::endl;
 	}
 
@@ -166,7 +169,7 @@ namespace Engine
 
 	void Game::CreateBullet()
 	{
-		Asteroids::Bullet* pBullet = m_player->Shoot();	
+		Asteroids::Bullet* pBullet = m_player->Shoot();
 		m_entities.push_back(pBullet);
 		m_bullets.push_back(pBullet);
 	}
@@ -223,7 +226,7 @@ namespace Engine
 
 	void Game::RespawnPlayer()
 	{
-		m_player = new Asteroids::Player();
+		m_player = new Asteroids::Player(m_game_height_percent);
 		m_entities.push_back(m_player);
 	}
 
@@ -257,7 +260,7 @@ namespace Engine
 			right = false;
 			break;
 		case SDL_SCANCODE_R:
-			if (!m_player)
+			if (!m_player && _remainingLives > 0)
 			{
 				RespawnPlayer();
 			}
@@ -335,11 +338,6 @@ namespace Engine
 		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		// Render player
-		//
-		if (m_player)
-			m_player->Render();
-
 		for (std::list< Asteroids::Entity* >::iterator it = m_entities.begin(); it != m_entities.end(); ++it)
 		{
 			if ((*it)->CouldCollide())
@@ -369,8 +367,16 @@ namespace Engine
 
 		if (m_player == entity)
 		{
-			//return;
+			--_remainingLives;
 			m_player = nullptr;
+			if (_remainingLives > 0)
+			{
+				std::cout << std::endl << "--- " << _remainingLives << " remaining lives ---" << std::endl;
+			}
+			else 
+			{
+				std::cout << std::endl << "--- GAME OVER ---" << std::endl;
+			}
 		}
 
 

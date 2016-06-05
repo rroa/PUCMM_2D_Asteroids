@@ -30,7 +30,7 @@ namespace Asteroids
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		Asteroid						( AsteroidSize::Size size );
+		Asteroid						( AsteroidSize::Size size, float heightPercent);
 		void ApplyImpulse				( Engine::Vector2 impulse ) override;
 		void Update						( float deltaTime, int worldWidth, int worldHeight );
 		void Render						( ) override;

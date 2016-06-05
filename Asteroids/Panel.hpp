@@ -1,28 +1,26 @@
 #pragma once
-#ifndef BULLET_HPP
-#define BULLET_HPP
+#ifndef PANEL_HPP
+#define PANEL_HPP
 
 #include "Entity.hpp"
 
 namespace Asteroids
 {
-	class Bullet : public Entity
+	class Panel : public Entity
 	{
 	public:
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		Bullet					( float heightPercent );
-		void ApplyImpulse		( Engine::Vector2 impulse ) override;
-		void Update				( float deltaTime, int worldWidth, int worldHeight );
-		void Render				( ) override;
+		Panel(float heightPercent);
+		void ApplyImpulse(Engine::Vector2 impulse) override;
+		void Update(float deltaTime, int worldWidth, int worldHeight);
+		void Render() override;
 	private:
 		/* =============================================================
 		* MEMBERS
 		* ============================================================= */
-		float					m_lifespan;
-		float					m_currentLifespan;
 	};
 }
 
-#endif // !BULLET_HPP
+#endif // !PANEL_HPP

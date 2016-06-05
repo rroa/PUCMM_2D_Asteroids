@@ -3,8 +3,8 @@
 
 namespace Asteroids
 {
-	Bullet::Bullet()
-		: m_currentLifespan(0.f)
+	Bullet::Bullet(float heightPercent) : Entity(heightPercent)
+		, m_currentLifespan(0.f)
 		, m_lifespan(120.f)
 	{
 		m_radius = 1.0f;

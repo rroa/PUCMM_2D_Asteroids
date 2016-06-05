@@ -18,8 +18,8 @@ namespace Asteroids
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		Player							( );
-		void Update						( float deltaTime, int worldWidth, int worldHeight );
+		Player							( float heightPercent );
+		void Update						( float deltaTime, int worldWidth, int worldHeight);
 		void Render						( );
 
 		//

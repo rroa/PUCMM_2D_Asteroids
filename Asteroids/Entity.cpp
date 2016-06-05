@@ -17,9 +17,10 @@ namespace Asteroids
 		return x;
 	}
 
-	Entity::Entity()
+	Entity::Entity(float heightPercent)
 		: m_mass(1.0f)
 		, m_state(EntityState::State::NORMAL)
+		, m_height_percent(heightPercent)
 	{}
 
 	void Entity::Update(float deltaTime, int worldWidth, int worldHeight)
@@ -31,10 +32,10 @@ namespace Asteroids
 		float halfHeight = (worldHeight / 2.0f);
 
 		float worldMinX = -halfWidth;
-		float worldMaxX =  halfWidth;
+		float worldMaxX = halfWidth;
 
-		float worldMinY = -halfHeight;
-		float worldMaxY =  halfHeight;
+		float worldMinY = -((worldHeight * m_height_percent) - halfHeight);
+		float worldMaxY = halfHeight;
 
 		m_position.x = wrap(m_position.x, worldMinX, worldMaxX);
 		m_position.y = wrap(m_position.y, worldMinY, worldMaxY);

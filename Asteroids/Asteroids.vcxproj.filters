@@ -50,6 +50,9 @@
     <ClCompile Include="TimeManager.cpp">
       <Filter>Core\Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Panel.cpp">
+      <Filter>Game\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.hpp">
@@ -75,6 +78,9 @@
     </ClInclude>
     <ClInclude Include="TimeManager.hpp">
       <Filter>Core\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Panel.hpp">
+      <Filter>Game\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

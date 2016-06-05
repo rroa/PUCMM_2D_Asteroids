@@ -25,9 +25,9 @@ namespace Asteroids
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		Entity();
+		Entity						( float heightPercent );
 		virtual void ApplyImpulse	( Engine::Vector2 impulse ) = 0;
-		virtual void Update			( float deltaTime, int worldWidth, int worldHeight );
+		virtual void Update			( float deltaTime, int worldWidth, int worldHeight);
 		virtual void Render			( ) = 0;
 		void Teleport				( float newX, float newY );
 		bool DetectCollision		( Entity* entity );
@@ -45,6 +45,7 @@ namespace Asteroids
 		float						m_mass;
 		EntityState::State			m_state;
 		float						m_radius;
+		float						m_height_percent;
 	};
 }
 

@@ -12,6 +12,7 @@
 #include "Asteroid.hpp"
 #include "Bullet.hpp"
 #include "TimeManager.hpp"
+#include "Panel.hpp"
 
 namespace Engine
 {
@@ -81,6 +82,7 @@ namespace Engine
 		std::list< Asteroids::Entity* >     m_entities;
 		double								m_lastFrameTime;
 		Engine::TimeManager*				m_timer;
+		Asteroids::Panel*					m_panel;
 	};
 }
 #endif /* GAME_HPP */
