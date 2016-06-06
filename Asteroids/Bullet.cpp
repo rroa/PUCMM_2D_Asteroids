@@ -40,11 +40,14 @@ namespace Asteroids
 		glPointSize(2.0f);
 
 		glEnable(GL_POINT_SMOOTH);
-
+		glColor3f(0, 0, 1.0f);
+		
 		glBegin(GL_POINTS);
 
 			glVertex2f(m_position.x, m_position.y);
 
 		glEnd();
+
+		glColor3f(1.0f, 1.0f, 1.0f);
 	}
 }

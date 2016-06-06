@@ -67,9 +67,7 @@ namespace Asteroids
 
 	void Player::ChangeShip(int shipNum)
 	{
-		// std::cout << "current: " << m_currentShip << " | ship: " << ship << std::endl;
 		m_currentShip = (m_currentShip + shipNum)  % 3;
-		// std::cout << m_currentShip << std::endl;
 		m_points.clear();
 
 		switch (m_currentShip)
