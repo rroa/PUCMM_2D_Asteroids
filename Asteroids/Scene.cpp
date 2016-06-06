@@ -1,5 +1,6 @@
 #include "Scene.hpp"
 
+#include <SDL2/SDL_opengl.h>
 #include <algorithm>
 
 namespace Engine
@@ -23,6 +24,14 @@ namespace Engine
 
 	void Scene::Render()
 	{
+		// TODO: RR: Move this to renderer class
+		glClearColor(m_background.x, 
+					 m_background.y, 
+					 m_background.z, 
+				 	 1.0f);
+
+		glClear(GL_COLOR_BUFFER_BIT);
+
 		// Render children
 		//
 		std::vector< GameObject* >::iterator child = m_gameObjects.begin();

@@ -1,4 +1,4 @@
-#include "RigidBodyComponent.h"
+#include "RigidBodyComponent.hpp"
 
 namespace Engine
 {

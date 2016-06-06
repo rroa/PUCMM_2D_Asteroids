@@ -11,8 +11,7 @@
 #include "App.hpp"
 #include "GameObject.hpp"
 #include "Component.hpp"
-#include "RigidBodyComponent.h"
-#include "CollisionComponent.hpp"
+#include "RigidBodyComponent.hpp"
 #include "TransformationComponent.hpp"
 
 const int WIDTH = 1136;
@@ -34,7 +33,7 @@ int main(int argc, char* argv[])
 
 	// Initialize game
 	//
-	if(!app->OnInit())
+	if(!app->Init())
 	{
 		std::cout << "Game Init error!\n";
 		return -1;
@@ -42,34 +41,11 @@ int main(int argc, char* argv[])
 
 	// Execute game
 	//
-	app->OnExecute();
+	app->Execute();
 
 	// Delete game object
 	//
 	delete app;
-
-	/*Engine::GameObject* go = new Engine::GameObject();
-	Engine::PhysicsComponent* pc = new Engine::PhysicsComponent();
-	Engine::CollisionComponent* cc = new Engine::CollisionComponent();
-	Engine::TransformationComponent* tc = new Engine::TransformationComponent();
-
-	go->AttachComponent(pc);
-	go->AttachComponent(cc);
-	go->AttachComponent(tc);
-
-	Engine::PhysicsComponent* rt = go->GetComponent<Engine::PhysicsComponent>();
-	assert(rt);
-	if (rt)
-	{
-		std::cout << rt->GetName() << std::endl;
-		std::cout << rt->GetMass() << std::endl;
-	}
-
-	std::cin.get();*/
-
-	//delete go;
-
-
 
 	return 0;
 }

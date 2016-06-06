@@ -12,12 +12,21 @@ namespace Engine
 	class TransformationComponent : public Component
 	{
 	public:
-		TransformationComponent();
-		~TransformationComponent();
+		/* =============================================================
+		* PUBLIC FUNCTIONS
+		* ============================================================= */
+		TransformationComponent			( );
+		~TransformationComponent		( );
+		void Teleport					( float x, float y );
+		void Teleport					( Vector2 newPosition );
+		inline Vector2 GetPosition		( ) { return m_position; }
 	protected:
-		Vector2 m_position;
-		Vector3 m_rotation;
-		float m_angle;
+		/* =============================================================
+		* MEMBERS
+		* ============================================================= */
+		Vector2							m_position;
+		Vector3							m_rotation;
+		float							m_angle;
 	};
 }
 

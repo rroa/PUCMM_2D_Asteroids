@@ -11,7 +11,6 @@ namespace Engine
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
 		void virtual Render		( ) = 0;
-	protected:
 	};
 }
 

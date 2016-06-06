@@ -11,6 +11,7 @@
 #include "Player.hpp"
 #include "Asteroid.hpp"
 #include "Bullet.hpp"
+#include "Scene.hpp"
 
 namespace Engine
 {
@@ -38,12 +39,14 @@ namespace Engine
 		 * ============================================================= */
 		App									( const std::string& title, const int width, const int height );
 		~App								( );
-		void OnExecute						( );
-		bool OnInit							( );
-		void OnUpdate						( );
-		void OnRender						( );
-		void OnKeyDown						( SDL_KeyboardEvent keyBoardEvent ) override;
-		void OnKeyUp						( SDL_KeyboardEvent keyBoardEvent ) override;
+		void Execute						( );
+		bool Init							( );
+		void Update							( );
+		void Render							( );
+		inline int GetWidth					( ) { return m_width; }
+		inline int GetHeight				( ) { return m_height; }
+		inline void SetCurrentScene			( Scene* newScene ) { m_currentScene = newScene; }
+		inline Scene* GetCurrentScene		( ) const { return m_currentScene; }
 	private:
 		/* =============================================================
 		 * PRIVATE FUNCTIONS
@@ -52,8 +55,11 @@ namespace Engine
 		bool GlewInit						( );
 		void SetupViewport					( );
 		void CleanupSDL						( );
+		void OnKeyDown						( SDL_KeyboardEvent keyBoardEvent ) override;
+		void OnKeyUp						( SDL_KeyboardEvent keyBoardEvent ) override;
 		void OnResize						( int width, int height ) override;
 		void OnExit							( ) override;
+		// TODO: RR: Move this out!		
 		void CreateAsteroid					( Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x = 0.0f, float y = 0.0f );
 		void CreateDebris					( Asteroids::Entity* entity );
 		void CheckCollision					( );
@@ -72,10 +78,13 @@ namespace Engine
 		SDL_GLContext						m_context;
 		AppState::State						m_state;
 		int									m_nUpdates;
+		Scene*								m_currentScene;
+		// TODO: RR: Move this out!
 		Asteroids::Player*					m_player;
 		std::list< Asteroids::Asteroid* >	m_asteroids;
 		std::list< Asteroids::Bullet* >		m_bullets;
 		std::list< Asteroids::Entity* >     m_entities;
+		
 	};
 }
 #endif /* GAME_HPP */

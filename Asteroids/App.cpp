@@ -6,16 +6,15 @@
 #include <GL/glew.h>
 #include <SDL2/SDL_opengl.h>
 
+
 //
+#include "InputSystem.hpp"
 #include "Player.hpp"
+#include "World.hpp"
+#include "Ship.hpp"
 
 namespace Engine
 {
-	inline float randInRange(float min, float max)
-	{
-		return min + (max - min) * (rand() / (float)RAND_MAX);
-	}
-
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
 	bool up = false;
@@ -35,17 +34,29 @@ namespace Engine
 		m_entities.push_back(m_player);
 		m_dimensions[0] = width;
 		m_dimensions[1] = height;
+
+		m_currentScene = new Scene(Vector3(0.1f, 0.1f, 0.14f));
+		Asteroids::World* world = new Asteroids::World(width, height);
+		world->AddChild(new Asteroids::Ship());
+		m_currentScene->AddGameObject(world);
 	}
 
 	App::~App()
 	{
-		if(m_player)
+		if (m_player)
+		{
 			delete m_player;
+		}
+
+		if (m_currentScene)
+		{ 
+			delete m_currentScene;
+		}
 
 		CleanupSDL();
 	}
 
-	void App::OnExecute()
+	void App::Execute()
 	{
 		if (m_state != AppState::INIT_SUCCESSFUL)
 		{
@@ -67,12 +78,12 @@ namespace Engine
 			}
 
 			//
-			OnUpdate();
-			OnRender();
+			Update();
+			Render();
 		}
 	}
 
-	bool App::OnInit()
+	bool App::Init()
 	{
 		// Init the external dependencies
 		//
@@ -96,37 +107,37 @@ namespace Engine
 
 	void App::CreateAsteroid(Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x, float y)
 	{
-		for (int i = 0; i < amount; ++i)
-		{
-			Asteroids::Asteroid* pAsteroid = new Asteroids::Asteroid(size);
-			m_entities.push_back(pAsteroid);
-			m_asteroids.push_back(pAsteroid);
+		//for (int i = 0; i < amount; ++i)
+		//{
+		//	Asteroids::Asteroid* pAsteroid = new Asteroids::Asteroid(size);
+		//	m_entities.push_back(pAsteroid);
+		//	m_asteroids.push_back(pAsteroid);
 
-			if (x == 0 && y == 0)
-			{
-				const int sideAxis = rand() & 1;
-				const float sideDir = (rand() & 1) ? 1.0f : -1.0f;
+		//	if (x == 0 && y == 0)
+		//	{
+		//		const int sideAxis = rand() & 1;
+		//		const float sideDir = (rand() & 1) ? 1.0f : -1.0f;
 
-				const int otherSideAxis = (sideAxis + 1) & 1;
+		//		const int otherSideAxis = (sideAxis + 1) & 1;
 
-				float point[2];
-				point[sideAxis] = sideDir * m_dimensions[sideAxis] * 0.5f;
-				point[otherSideAxis] = randInRange(m_dimensions[otherSideAxis] * -0.5f, m_dimensions[otherSideAxis] * 0.5f);
+		//		float point[2];
+		//		point[sideAxis] = sideDir * m_dimensions[sideAxis] * 0.5f;
+		//		point[otherSideAxis] = randInRange(m_dimensions[otherSideAxis] * -0.5f, m_dimensions[otherSideAxis] * 0.5f);
 
-				pAsteroid->Teleport(point[0], point[1]);
-			}
-			else
-			{
-				pAsteroid->Teleport(x, y);
-			}
+		//		pAsteroid->Teleport(point[0], point[1]);
+		//	}
+		//	else
+		//	{
+		//		pAsteroid->Teleport(x, y);
+		//	}
 
-			// Applying impulse to the asteroid
-			//
-			float x = randInRange(-150.0f, 150.0f);
-			float y = randInRange(-150.0f, 150.0f);
+		//	// Applying impulse to the asteroid
+		//	//
+		//	float x = randInRange(-150.0f, 150.0f);
+		//	float y = randInRange(-150.0f, 150.0f);
 
-			pAsteroid->ApplyImpulse(Engine::Vector2(x, y));
-		}
+		//	pAsteroid->ApplyImpulse(Engine::Vector2(x, y));
+		//}
 	}
 
 	void App::CreateBullet()
@@ -194,99 +205,72 @@ namespace Engine
 
 	void App::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
 	{		
-		switch (keyBoardEvent.keysym.scancode)
-		{
-		case SDL_SCANCODE_W:
-			up = true;
-			break;
-		case SDL_SCANCODE_A:
-			left = true;
-			break;		
-		case SDL_SCANCODE_D:
-			right = true;
-			break;
-		}
+		OnKeyboardDownEvent(keyBoardEvent.keysym.sym);
 	}
 
 	void App::OnKeyUp(SDL_KeyboardEvent keyBoardEvent)
 	{
 		switch (keyBoardEvent.keysym.scancode)
-		{
-		case SDL_SCANCODE_W:
-			up = false;
-			break;
-		case SDL_SCANCODE_A:
-			left = false;
-			break;
-		case SDL_SCANCODE_D:
-			right = false;
-			break;
-		case SDL_SCANCODE_R:
-			RespawnPlayer();
-			break;
-		case SDL_SCANCODE_TAB:
-			m_player->ChangeShip();
-			break;
-		case SDL_SCANCODE_SPACE:
-			//
-			CreateBullet();
-			break;
+		{		
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
 			break;
+		default:			
+			OnKeyboardUpEvent(keyBoardEvent.keysym.sym);
 		}
 	}
 
-	void App::OnUpdate()
+	void App::Update()
 	{
-		if (up)
-			m_player->MoveUp();
-		if (left)
-			m_player->RotateLeft(DESIRED_FRAME_TIME);
-		if (right)
-			m_player->RotateRight(DESIRED_FRAME_TIME);
+		//if (up)
+		//	m_player->MoveUp();
+		//if (left)
+		//	m_player->RotateLeft(DESIRED_FRAME_TIME);
+		//if (right)
+		//	m_player->RotateRight(DESIRED_FRAME_TIME);
 
-		// Updating the entities
-		//
-		std::list< Asteroids::Entity* >::iterator ait = m_entities.begin();
-		while (ait != m_entities.end())
-		{
-			(*ait)->Update(DESIRED_FRAME_TIME, m_width, m_height);
-			++ait;
-		}
+		//// Updating the entities
+		////
+		//std::list< Asteroids::Entity* >::iterator ait = m_entities.begin();
+		//while (ait != m_entities.end())
+		//{
+		//	(*ait)->Update(DESIRED_FRAME_TIME, m_width, m_height);
+		//	++ait;
+		//}
 
-		if(m_player)
-		{
-			m_player->Update(DESIRED_FRAME_TIME, m_width, m_height);
+		//if(m_player)
+		//{
+		//	m_player->Update(DESIRED_FRAME_TIME, m_width, m_height);
 
-			// Checking collision between the entities
-			//
-			CheckCollision();
+		//	// Checking collision between the entities
+		//	//
+		//	CheckCollision();
 
-			// Checking for entities marked as collided or for deletion
-			//
-			CleanEntities();
-		}
+		//	// Checking for entities marked as collided or for deletion
+		//	//
+		//	CleanEntities();
+		//}
 
-		m_nUpdates++;
+		//m_nUpdates++;
+		m_currentScene->Update(DESIRED_FRAME_TIME);
 	}
 
-	void App::OnRender()
+	void App::Render()
 	{
-		glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		//glClearColor(0.1f, 0.1f, 0.15f, 1.0f);
+		//glClear(GL_COLOR_BUFFER_BIT);
 
-		// Render player
-		//
-		if (m_player)
-			m_player->Render();
+		//// Render player
+		////
+		//if (m_player)
+		//	m_player->Render();
 
-		for (std::list< Asteroids::Entity* >::iterator it = m_entities.begin(); it != m_entities.end(); ++it)
-		{
-			if ((*it)->CouldCollide())
-				(*it)->Render();
-		}
-
+		//for (std::list< Asteroids::Entity* >::iterator it = m_entities.begin(); it != m_entities.end(); ++it)
+		//{
+		//	if ((*it)->CouldCollide())
+		//		(*it)->Render();
+		//}
+		m_currentScene->Render();
 		SDL_GL_SwapWindow(m_mainWindow);
 	}
 

@@ -16,7 +16,7 @@ namespace Engine
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		Component						(const std::string& name );
+		Component						( const std::string& name );
 		~Component						( );
 		void virtual Update 			( float deltaTime );
 

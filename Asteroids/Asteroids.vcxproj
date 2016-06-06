@@ -172,40 +172,44 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
   <ItemGroup>
     <ClCompile Include="Asteroid.cpp" />
     <ClCompile Include="Bullet.cpp" />
-    <ClCompile Include="CollisionComponent.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="App.cpp" />
     <ClCompile Include="GameObject.cpp" />
+    <ClCompile Include="InputSystem.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Matrix2.cpp" />
     <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDLEvent.cpp" />
+    <ClCompile Include="Ship.cpp" />
     <ClCompile Include="TransformationComponent.cpp" />
     <ClCompile Include="Vector2.cpp" />
     <ClCompile Include="Vector3.cpp" />
+    <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asteroid.hpp" />
     <ClInclude Include="Bullet.hpp" />
-    <ClInclude Include="CollisionComponent.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Entity.hpp" />
     <ClInclude Include="App.hpp" />
     <ClInclude Include="GameObject.hpp" />
+    <ClInclude Include="InputSystem.hpp" />
     <ClInclude Include="IRender.h" />
     <ClInclude Include="IUpdate.h" />
     <ClInclude Include="Matrix2.hpp" />
-    <ClInclude Include="RigidBodyComponent.h" />
+    <ClInclude Include="RigidBodyComponent.hpp" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SDLEvent.hpp" />
+    <ClInclude Include="Ship.hpp" />
     <ClInclude Include="TransformationComponent.hpp" />
     <ClInclude Include="Utilities.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
+    <ClInclude Include="World.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
