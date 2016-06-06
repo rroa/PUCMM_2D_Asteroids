@@ -167,8 +167,12 @@ namespace Engine
 
 	void Game::UpdateScore(int delta)
 	{
-		m_score += delta;
+ 		m_score += delta;
 		std::cout << "Your new score is " << m_score << std::endl;
+	}
+
+	void Game::IncreaseLevel(int level) {
+
 	}
 
 
@@ -192,9 +196,12 @@ namespace Engine
 							UpdateScore(10);
 							CreateDebris((*asteroid));
 						}
-					}
+  					}
 				}
 			}
+		}
+		if (m_asteroids.empty()) {
+			std::cout << "empty" << std::endl;
 		}
 	}
 
@@ -237,7 +244,10 @@ namespace Engine
 			right = false;
 			break;
 		case SDL_SCANCODE_R:
-			RespawnPlayer();
+			if (!m_player)
+			{
+				RespawnPlayer();
+			}
 			break;
 		case SDL_SCANCODE_TAB:
 			if (m_player)
@@ -273,7 +283,6 @@ namespace Engine
 			(*ait)->Update(DESIRED_FRAME_TIME, m_width, m_height);
 			++ait;
 		}
-
 		if(m_player)
 		{
 			if (up)
