@@ -26,6 +26,8 @@ namespace Asteroids
 	{
 		glLoadIdentity();
 
+		glColor3f(255.0f, 255.0f, 255.0f);
+
 		glBegin(GL_LINE_LOOP);
 
 		glVertex2f(-m_position.x, m_position.y);

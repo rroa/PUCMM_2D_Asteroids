@@ -188,6 +188,8 @@ namespace Asteroids
 		glTranslatef(m_position.x, m_position.y, 0.0f);
 		glRotatef(m_angle, 0.0f, 0.0f, 1.0f);
 
+		glColor3f(0.0f, 255.0f, 0.0f);
+
 		glBegin(GL_LINE_LOOP);
 		
 		std::vector<Engine::Vector2>::iterator it = m_points.begin();

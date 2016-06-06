@@ -77,10 +77,10 @@ namespace Engine
 
 			if (m_state != GameState::PAUSED)
 			{
-				//
 				OnUpdate();
-				OnRender();
 			}
+
+			OnRender();
 		}
 	}
 
@@ -360,7 +360,29 @@ namespace Engine
 				(*it)->Render();
 		}
 
+		if (m_state == GameState::PAUSED)
+		{
+			RenderPaused();
+		}
+
 		SDL_GL_SwapWindow(m_mainWindow);
+	}
+
+	void Game::RenderPaused()
+	{
+		glLoadIdentity();
+
+		glColor3f(255.0f, 0.0f, 0.0f);
+
+		glBegin(GL_LINE_LOOP);
+		glVertex2f((m_width / 2.0f) - 25, (m_height / 2.0f) - 25);
+		glVertex2f((m_width / 2.0f) - 25, (m_height / 2.0f) - 40);
+		glEnd();
+
+		glBegin(GL_LINE_LOOP);
+		glVertex2f((m_width / 2.0f) - 35, (m_height / 2.0f) - 25);
+		glVertex2f((m_width / 2.0f) - 35, (m_height / 2.0f) - 40);
+		glEnd();
 	}
 
 	void Game::DestroyEntity(Asteroids::Entity* entity)

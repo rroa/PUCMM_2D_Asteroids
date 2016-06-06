@@ -39,6 +39,7 @@ namespace Asteroids
 
 		glPointSize(2.0f);
 
+		glColor3f(255.0f, 0.0f, 0.0f);
 		glEnable(GL_POINT_SMOOTH);
 
 		glBegin(GL_POINTS);

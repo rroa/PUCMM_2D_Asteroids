@@ -83,6 +83,7 @@ namespace Engine
 		double								m_lastFrameTime;
 		Engine::TimeManager*				m_timer;
 		Asteroids::Panel*					m_panel;
+		void								RenderPaused();
 	};
 }
 #endif /* GAME_HPP */
