@@ -62,12 +62,14 @@ namespace Engine
 		void CreateBullet					( );
 		void DestroyEntity					( Asteroids::Entity* entity );
 		void RespawnPlayer					( );
-		void UpdateScore				( int delta );
+		void UpdateScore					( int delta );
+		void IncreaseLevel					( int level);
 
 
 		/* =============================================================
 		 * MEMBERS
 		 * ============================================================= */
+		int									m_level;
 		int									m_width;
 		int									m_height;
 		int									m_nUpdates;

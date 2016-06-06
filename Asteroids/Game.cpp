@@ -28,7 +28,8 @@ namespace Engine
 		m_width(width),
 		m_height(height),
 		m_nUpdates(0),
-		m_score(0)
+		m_score(0),
+		m_level(0)
 	{
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
@@ -58,7 +59,7 @@ namespace Engine
 		}
 
 		m_state = GameState::RUNNING;
-		CreateAsteroid(Asteroids::Asteroid::AsteroidSize::BIG, 1);
+		Game::IncreaseLevel(1);
 
 		SDL_Event event;
 		while (m_state == GameState::RUNNING)
@@ -165,16 +166,22 @@ namespace Engine
 		}
 	}
 
+	void Game::IncreaseLevel(int level) {
+		m_level += level;
+		std::cout << "\n==============================================" << std::endl;
+		std::cout << "                    LEVEL " << m_level << std::endl;
+		std::cout << "Total Asteroids: " << m_level * 7 << std::endl;
+		std::cout << "Current score: " << m_score << std::endl;
+		std::cout << "==============================================\n" << std::endl;
+
+		CreateAsteroid(Asteroids::Asteroid::AsteroidSize::BIG, m_level);
+	}
+
 	void Game::UpdateScore(int delta)
 	{
- 		m_score += delta;
-		std::cout << "Your new score is " << m_score << std::endl;
+   		m_score += delta;
+		std::cout << "Asteroid shooted, your score is: " << m_score << std::endl;
 	}
-
-	void Game::IncreaseLevel(int level) {
-
-	}
-
 
 	void Game::CheckCollision()
 	{
@@ -193,7 +200,7 @@ namespace Engine
 					{
 						if ((*asteroid)->DetectCollision((*bullet)))
 						{
-							UpdateScore(10);
+							UpdateScore(1);
 							CreateDebris((*asteroid));
 						}
   					}
@@ -201,7 +208,7 @@ namespace Engine
 			}
 		}
 		if (m_asteroids.empty()) {
-			std::cout << "empty" << std::endl;
+			Game::IncreaseLevel(1);
 		}
 	}
 

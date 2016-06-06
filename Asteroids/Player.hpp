@@ -38,7 +38,7 @@ namespace Asteroids
 		float							m_angle;
 		float							m_rotation;
 		float							m_currentSpeed;
-		int							    m_currentShip;
+		int								m_currentShip;
 	};
 }
 
