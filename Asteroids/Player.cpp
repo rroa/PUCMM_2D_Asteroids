@@ -2,6 +2,8 @@
 #include <SDL2/SDL_opengl.h>
 #include <cmath>
 
+#include <iostream>
+
 namespace Asteroids
 {
 	const float DRAG_FORCE = 0.999f;
@@ -10,6 +12,8 @@ namespace Asteroids
 	const float ANGLE_OFFSET = 90.f;
 	const float BULLET_SPEED = 250.f;
 	const float PI = 3.141592653f;
+	// int Player::m_currentShip = 1;
+	int Player::m_currentShip = 0;
 
 	/*
 	 * const float DRAG_FORCE = 0.999f;
@@ -22,14 +26,13 @@ namespace Asteroids
 	Player::Player()
 		: m_angle(0.0f)
 		, m_rotation(300)
-		, m_currentShip(-1)
 	{
 		m_mass = 0.5f;
 		m_radius = 10.0f;
 
 		// Set model render vertices (default ship)
 		//
-		ChangeShip();
+		ChangeShip(0);
 	}
 
 	void Player::ApplyDrag()
@@ -62,9 +65,11 @@ namespace Asteroids
 		m_angle += m_rotation * (deltaTime);
 	}
 
-	void Player::ChangeShip()
+	void Player::ChangeShip(int shipNum)
 	{
-		m_currentShip = ++m_currentShip % 3;
+		// std::cout << "current: " << m_currentShip << " | ship: " << ship << std::endl;
+		m_currentShip = (m_currentShip + shipNum)  % 3;
+		// std::cout << m_currentShip << std::endl;
 		m_points.clear();
 
 		switch (m_currentShip)

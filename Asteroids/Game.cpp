@@ -259,7 +259,7 @@ namespace Engine
 		case SDL_SCANCODE_TAB:
 			if (m_player)
 			{
-				m_player->ChangeShip();
+				m_player->ChangeShip(1);
 			}
 			break;
 		case SDL_SCANCODE_SPACE:

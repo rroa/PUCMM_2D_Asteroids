@@ -28,7 +28,7 @@ namespace Asteroids
 		void MoveUp						( );
 		void RotateRight				( float deltaTime );
 		void RotateLeft					( float deltaTime );
-		void ChangeShip					( );
+		void ChangeShip					( int shipNum);
 		Asteroids::Bullet* Shoot();
 	private:
 		/* =============================================================
@@ -38,7 +38,7 @@ namespace Asteroids
 		float							m_angle;
 		float							m_rotation;
 		float							m_currentSpeed;
-		int								m_currentShip;
+		static int						m_currentShip;
 	};
 }
 
