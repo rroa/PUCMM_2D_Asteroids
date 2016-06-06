@@ -304,6 +304,10 @@ namespace Engine
 	{
 		double startTime = m_timer->GetElapsedTimeInSeconds();
 
+		// Updating panel
+		//
+		m_panel->Update(DESIRED_FRAME_TIME, m_width, m_height, _remainingLives);
+
 		// Updating the entities
 		//
 		std::list< Asteroids::Entity* >::iterator ait = m_entities.begin();

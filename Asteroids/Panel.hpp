@@ -14,12 +14,16 @@ namespace Asteroids
 		* ============================================================= */
 		Panel(float heightPercent);
 		void ApplyImpulse(Engine::Vector2 impulse) override;
-		void Update(float deltaTime, int worldWidth, int worldHeight);
+		void Update(float deltaTime, int worldWidth, int worldHeight) override;
+		void Update(float deltaTime, int worldWidth, int worldHeight, int lives);
 		void Render() override;
 	private:
 		/* =============================================================
 		* MEMBERS
 		* ============================================================= */
+		int									m_lives;
+		void								DrawLives();
+		void								DrawLine();
 	};
 }
 
