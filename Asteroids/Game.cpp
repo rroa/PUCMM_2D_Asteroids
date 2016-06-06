@@ -66,7 +66,7 @@ namespace Engine
 		StartLevel();
 
 		SDL_Event event;
-		while (m_state == GameState::RUNNING)
+		while ((m_state & (GameState::RUNNING + GameState::PAUSED)) != 0)
 		{
 			// Input polling
 			//
@@ -75,9 +75,12 @@ namespace Engine
 				OnEvent(&event);
 			}
 
-			//
-			OnUpdate();
-			OnRender();
+			if (m_state != GameState::PAUSED)
+			{
+				//
+				OnUpdate();
+				OnRender();
+			}
 		}
 	}
 
@@ -280,6 +283,19 @@ namespace Engine
 			break;
 		case SDL_SCANCODE_ESCAPE:
 			OnExit();
+			break;
+		case SDL_SCANCODE_KP_ENTER:
+		case SDL_SCANCODE_RETURN:
+			if (m_state != GameState::PAUSED)
+			{
+				m_state = GameState::PAUSED;
+				std::cout << std::endl << "*** GAME PAUSED ***" << std::endl;
+			}
+			else
+			{
+				m_state = GameState::RUNNING;
+				std::cout << std::endl << "*** GAME RESUMED ***" << std::endl;
+			}
 			break;
 		}
 	}
