@@ -58,11 +58,11 @@ namespace Engine
 		void OnExit							( ) override;
 		void CreateAsteroid					( Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x = 0.0f, float y = 0.0f );
 		void CreateDebris					( Asteroids::Entity* entity );
+		void CleanEntities					(bool cleanAll = false);
 		void CheckCollision					( );
-		void CleanEntities					( );
 		void CreateBullet					( );
 		void DestroyEntity					( Asteroids::Entity* entity );
-		void RespawnPlayer					( );
+		void CreatePlayer					( );
 		void SetRemainingAsteroids          ( );
 		void StartLevel						( bool levelUp = false );
 
@@ -84,6 +84,11 @@ namespace Engine
 		Engine::TimeManager*				m_timer;
 		Asteroids::Panel*					m_panel;
 		void								RenderPaused();
+		void								InitializeGame();
+		int									m_remaniningAsteroids;
+		int									m_asteroidsToCreateNumber;
+		int									m_remainingLives;
+		void								CleanAllEntities();
 	};
 }
 #endif /* GAME_HPP */

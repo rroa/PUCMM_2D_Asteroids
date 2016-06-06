@@ -15,10 +15,7 @@ namespace Engine
 
 	const float DESIRED_FRAME_RATE = 60.0f;
 	const float DESIRED_FRAME_TIME = 1.0f / DESIRED_FRAME_RATE;
-	int _remaniningAsteroids = 0;
 	Asteroids::Asteroid::AsteroidSize::Size _asteoridsToCreateSize = Asteroids::Asteroid::AsteroidSize::BIG;
-	int _asteoridsToCreateNumber = 1;
-	int _remainingLives = 3;
 	float m_game_height_percent = 0.9f;
 	float m_panel_height_percent = 0.1f;
 	bool up = false;
@@ -34,10 +31,6 @@ namespace Engine
 	{
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
-		m_player = new Asteroids::Player(m_game_height_percent);
-		m_panel = new Asteroids::Panel(m_panel_height_percent);
-		m_entities.push_back(m_player);
-		m_entities.push_back(m_panel);
 		m_dimensions[0] = width;
 		m_dimensions[1] = height;
 
@@ -47,10 +40,22 @@ namespace Engine
 
 	Game::~Game()
 	{
-		if(m_player)
-			delete m_player;
-
+		if (m_player) delete m_player;
 		CleanupSDL();
+	}
+
+	void Game::InitializeGame()
+	{
+		if (m_entities.size() > 0) CleanEntities(true);
+
+		m_remaniningAsteroids = 0;
+		m_asteroidsToCreateNumber = 1;
+		m_remainingLives = 3;
+		m_panel = new Asteroids::Panel(m_panel_height_percent);
+		m_entities.push_back(m_panel);
+
+		CreatePlayer();
+		StartLevel();
 	}
 
 	void Game::OnExecute()
@@ -63,7 +68,7 @@ namespace Engine
 
 		m_state = GameState::RUNNING;
 
-		StartLevel();
+		InitializeGame();
 
 		SDL_Event event;
 		while ((m_state & (GameState::RUNNING + GameState::PAUSED)) != 0)
@@ -104,7 +109,7 @@ namespace Engine
 		m_state = GameState::INIT_SUCCESSFUL;
 
 		return true;
-	}	
+	}
 
 	void Game::CreateAsteroid(Asteroids::Asteroid::AsteroidSize::Size size, int amount, float x, float y)
 	{
@@ -146,27 +151,27 @@ namespace Engine
 		switch (_asteoridsToCreateSize)
 		{
 		case Asteroids::Asteroid::AsteroidSize::BIG:
-			_remaniningAsteroids = _asteoridsToCreateNumber * 7;
+			m_remaniningAsteroids = m_asteroidsToCreateNumber * 7;
 			break;
 		case Asteroids::Asteroid::AsteroidSize::MEDIUM:
-			_remaniningAsteroids = _asteoridsToCreateNumber * 2;
+			m_remaniningAsteroids = m_asteroidsToCreateNumber * 2;
 			break;
 		case Asteroids::Asteroid::AsteroidSize::SMALL:
 		default:
-			_remaniningAsteroids = _asteoridsToCreateNumber;
+			m_remaniningAsteroids = m_asteroidsToCreateNumber;
 			break;
 		}
 
-		std::cout << std::endl << "Level " << _asteoridsToCreateNumber << "!" << std::endl;
-		std::cout << std::endl << "--- " << _remainingLives << " remaining lives ---" << std::endl;
-		std::cout << _remaniningAsteroids << " remaining asteroids to destoy!" << std::endl;
+		std::cout << std::endl << "Level " << m_asteroidsToCreateNumber << "!" << std::endl;
+		std::cout << std::endl << "--- " << m_remainingLives << " remaining lives ---" << std::endl;
+		std::cout << m_remaniningAsteroids << " remaining asteroids to destoy!" << std::endl;
 	}
 
 	void Game::StartLevel(bool levelUp)
 	{
-		if(levelUp) _asteoridsToCreateNumber++;
+		if (levelUp) m_asteroidsToCreateNumber++;
 
-		CreateAsteroid(_asteoridsToCreateSize, _asteoridsToCreateNumber);
+		CreateAsteroid(_asteoridsToCreateSize, m_asteroidsToCreateNumber);
 		SetRemainingAsteroids();
 	}
 
@@ -179,26 +184,54 @@ namespace Engine
 
 	void Game::CreateDebris(Asteroids::Entity* entity)
 	{
-		auto currentAsteroid = dynamic_cast < Asteroids::Asteroid* >(entity);
+		auto currentAsteroid = dynamic_cast <Asteroids::Asteroid*>(entity);
 		if (currentAsteroid != nullptr
 			&& currentAsteroid->GetSize() != Asteroids::Asteroid::AsteroidSize::SMALL)
 		{
-			auto newSize = 
-				(currentAsteroid->GetSize() == Asteroids::Asteroid::AsteroidSize::BIG) ? 
-					Asteroids::Asteroid::AsteroidSize::MEDIUM : 
-					Asteroids::Asteroid::AsteroidSize::SMALL;
+			auto newSize =
+				(currentAsteroid->GetSize() == Asteroids::Asteroid::AsteroidSize::BIG) ?
+				Asteroids::Asteroid::AsteroidSize::MEDIUM :
+				Asteroids::Asteroid::AsteroidSize::SMALL;
 
 			CreateAsteroid(newSize, 2, currentAsteroid->GetX(), currentAsteroid->GetY());
 		}
 	}
 
-	void Game::CleanEntities()
+	void Game::CleanAllEntities()
 	{
-		auto iter = std::find_if(m_entities.begin(), m_entities.end(),
-			[&](Asteroids::Entity* actor) { return actor->IsColliding() || actor->IsDisappearing(); });
-		if (iter != m_entities.end())
+		std::list<Asteroids::Entity*>::iterator entities = m_entities.begin();
+		while (entities != m_entities.end())
 		{
-			DestroyEntity(*iter);
+			m_entities.erase(entities++);
+		}
+
+		std::list<Asteroids::Asteroid*>::iterator asteroids = m_asteroids.begin();
+		while (asteroids != m_asteroids.end())
+		{
+			m_asteroids.erase(asteroids++);
+		}
+
+		std::list<Asteroids::Bullet*>::iterator bullets = m_bullets.begin();
+		while (bullets != m_bullets.end())
+		{
+			m_bullets.erase(bullets++);
+		}
+	}
+
+	void Game::CleanEntities(bool cleanAll)
+	{
+		if (cleanAll)
+		{
+			CleanAllEntities();
+		}
+		else
+		{
+			auto iter = std::find_if(m_entities.begin(), m_entities.end(),
+				[&](Asteroids::Entity* actor) { return actor->IsColliding() || actor->IsDisappearing(); });
+			if (iter != m_entities.end())
+			{
+				DestroyEntity(*iter);
+			}
 		}
 	}
 
@@ -227,14 +260,14 @@ namespace Engine
 		}
 	}
 
-	void Game::RespawnPlayer()
+	void Game::CreatePlayer()
 	{
 		m_player = new Asteroids::Player(m_game_height_percent);
 		m_entities.push_back(m_player);
 	}
 
 	void Game::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
-	{		
+	{
 		switch (keyBoardEvent.keysym.scancode)
 		{
 		case SDL_SCANCODE_W:
@@ -242,7 +275,7 @@ namespace Engine
 			break;
 		case SDL_SCANCODE_A:
 			left = true;
-			break;		
+			break;
 		case SDL_SCANCODE_D:
 			right = true;
 			break;
@@ -263,9 +296,9 @@ namespace Engine
 			right = false;
 			break;
 		case SDL_SCANCODE_R:
-			if (!m_player && _remainingLives > 0)
+			if (!m_player && m_remainingLives > 0)
 			{
-				RespawnPlayer();
+				CreatePlayer();
 			}
 			break;
 		case SDL_SCANCODE_TAB:
@@ -286,6 +319,9 @@ namespace Engine
 			break;
 		case SDL_SCANCODE_KP_ENTER:
 		case SDL_SCANCODE_RETURN:
+			InitializeGame();
+			break;
+		case SDL_SCANCODE_P:
 			if (m_state != GameState::PAUSED)
 			{
 				m_state = GameState::PAUSED;
@@ -306,7 +342,7 @@ namespace Engine
 
 		// Updating panel
 		//
-		m_panel->Update(DESIRED_FRAME_TIME, m_width, m_height, _remainingLives);
+		m_panel->Update(DESIRED_FRAME_TIME, m_width, m_height, m_remainingLives, m_asteroidsToCreateNumber);
 
 		// Updating the entities
 		//
@@ -317,7 +353,7 @@ namespace Engine
 			++ait;
 		}
 
-		if(m_player)
+		if (m_player)
 		{
 			if (up)
 				m_player->MoveUp();
@@ -390,7 +426,7 @@ namespace Engine
 	}
 
 	void Game::DestroyEntity(Asteroids::Entity* entity)
-	{		
+	{
 		// Retrieve actor from m_actors list
 		//
 		auto actorsResult = std::find(m_entities.begin(), m_entities.end(), entity);
@@ -409,13 +445,13 @@ namespace Engine
 
 		if (m_player == entity)
 		{
-			--_remainingLives;
+			--m_remainingLives;
 			m_player = nullptr;
-			if (_remainingLives > 0)
+			if (m_remainingLives > 0)
 			{
-				std::cout << std::endl << "--- " << _remainingLives << " remaining lives ---" << std::endl;
+				std::cout << std::endl << "--- " << m_remainingLives << " remaining lives ---" << std::endl;
 			}
-			else 
+			else
 			{
 				std::cout << std::endl << "--- GAME OVER ---" << std::endl;
 			}
@@ -431,18 +467,18 @@ namespace Engine
 
 		if (m_asteroids.size() > 0 && asteroidsResult != m_asteroids.end())
 		{
-			if (_remaniningAsteroids > 0) 
+			if (m_remaniningAsteroids > 0)
 			{
-				_remaniningAsteroids--;
+				m_remaniningAsteroids--;
 
-				if (_remaniningAsteroids == 0) 
+				if (m_remaniningAsteroids == 0)
 				{
 					std::cout << std::endl << "There's no more asteroids to destoy!" << std::endl;
 					StartLevel(true);
 				}
-				else 
+				else
 				{
-					std::cout << _remaniningAsteroids << " remaining asteroids to destoy!" << std::endl;
+					std::cout << m_remaniningAsteroids << " remaining asteroids to destoy!" << std::endl;
 				}
 			}
 
@@ -468,9 +504,9 @@ namespace Engine
 		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
 
-		Uint32 flags =  SDL_WINDOW_OPENGL     | 
-						SDL_WINDOW_SHOWN      | 
-						SDL_WINDOW_RESIZABLE;
+		Uint32 flags = SDL_WINDOW_OPENGL |
+			SDL_WINDOW_SHOWN |
+			SDL_WINDOW_RESIZABLE;
 
 		m_mainWindow = SDL_CreateWindow(
 			m_title.c_str(),
