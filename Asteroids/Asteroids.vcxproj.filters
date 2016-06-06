@@ -62,9 +62,6 @@
     <ClCompile Include="Scene.cpp">
       <Filter>Engine\Core</Filter>
     </ClCompile>
-    <ClCompile Include="PhysicsComponent.cpp">
-      <Filter>Engine\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Vector3.cpp">
       <Filter>Engine\Math</Filter>
     </ClCompile>
@@ -73,6 +70,12 @@
     </ClCompile>
     <ClCompile Include="TransformationComponent.cpp">
       <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBodyComponent.cpp">
+      <Filter>Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix2.cpp">
+      <Filter>Engine\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -112,9 +115,6 @@
     <ClInclude Include="IRender.h">
       <Filter>Engine\Core</Filter>
     </ClInclude>
-    <ClInclude Include="PhysicsComponent.h">
-      <Filter>Engine\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Vector3.hpp">
       <Filter>Engine\Math</Filter>
     </ClInclude>
@@ -123,6 +123,15 @@
     </ClInclude>
     <ClInclude Include="TransformationComponent.hpp">
       <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBodyComponent.h">
+      <Filter>Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Utilities.hpp">
+      <Filter>Engine\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix2.hpp">
+      <Filter>Engine\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

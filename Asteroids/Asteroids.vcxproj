@@ -178,7 +178,8 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
     <ClCompile Include="App.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PhysicsComponent.cpp" />
+    <ClCompile Include="Matrix2.cpp" />
+    <ClCompile Include="RigidBodyComponent.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Scene.cpp" />
     <ClCompile Include="SDLEvent.cpp" />
@@ -196,11 +197,13 @@ copy /Y "$(SolutionDir)\Externals\SDL2-2.0.4\lib\x64\SDL2.dll" "$(TargetDir)SDL2
     <ClInclude Include="GameObject.hpp" />
     <ClInclude Include="IRender.h" />
     <ClInclude Include="IUpdate.h" />
-    <ClInclude Include="PhysicsComponent.h" />
+    <ClInclude Include="Matrix2.hpp" />
+    <ClInclude Include="RigidBodyComponent.h" />
     <ClInclude Include="Player.hpp" />
     <ClInclude Include="Scene.hpp" />
     <ClInclude Include="SDLEvent.hpp" />
     <ClInclude Include="TransformationComponent.hpp" />
+    <ClInclude Include="Utilities.hpp" />
     <ClInclude Include="Vector2.hpp" />
     <ClInclude Include="Vector3.hpp" />
   </ItemGroup>

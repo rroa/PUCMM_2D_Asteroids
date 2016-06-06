@@ -11,7 +11,7 @@
 #include "App.hpp"
 #include "GameObject.hpp"
 #include "Component.hpp"
-#include "PhysicsComponent.h"
+#include "RigidBodyComponent.h"
 #include "CollisionComponent.hpp"
 #include "TransformationComponent.hpp"
 
@@ -30,25 +30,25 @@ int main(int argc, char* argv[])
 
 	// Create Game Object
 	//
-	//Engine::App* app = new Engine::App("Asteroids!", WIDTH, HEIGHT);
+	Engine::App* app = new Engine::App("Asteroids!", WIDTH, HEIGHT);
 
-	//// Initialize game
-	////
-	//if(!app->OnInit())
-	//{
-	//	std::cout << "Game Init error!\n";
-	//	return -1;
-	//}
+	// Initialize game
+	//
+	if(!app->OnInit())
+	{
+		std::cout << "Game Init error!\n";
+		return -1;
+	}
 
-	//// Execute game
-	////
-	//app->OnExecute();
+	// Execute game
+	//
+	app->OnExecute();
 
-	//// Delete game object
-	////
-	//delete app;
+	// Delete game object
+	//
+	delete app;
 
-	Engine::GameObject* go = new Engine::GameObject();
+	/*Engine::GameObject* go = new Engine::GameObject();
 	Engine::PhysicsComponent* pc = new Engine::PhysicsComponent();
 	Engine::CollisionComponent* cc = new Engine::CollisionComponent();
 	Engine::TransformationComponent* tc = new Engine::TransformationComponent();
@@ -65,9 +65,9 @@ int main(int argc, char* argv[])
 		std::cout << rt->GetMass() << std::endl;
 	}
 
-	std::cin.get();
+	std::cin.get();*/
 
-	delete go;
+	//delete go;
 
 
 

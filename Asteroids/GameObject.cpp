@@ -58,7 +58,7 @@ namespace Engine
 		std::vector< Component* >::iterator comp = m_components.begin();
 		for (;comp != m_components.end(); ++comp)
 		{
-			(*comp)->Update(deltaTime);			
+			(*comp)->Update(deltaTime);
 		}
 
 		// Update children
@@ -72,5 +72,16 @@ namespace Engine
 		// Base class function call
 		//
 		IUpdate::Update(deltaTime);
+	}
+
+	void GameObject::Render()
+	{
+		// Render children
+		//
+		std::vector< GameObject* >::iterator child = m_children.begin();
+		for (; child != m_children.end(); ++child)
+		{
+			(*child)->Render();
+		}
 	}
 }

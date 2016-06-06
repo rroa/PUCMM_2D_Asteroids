@@ -6,12 +6,13 @@
 
 //
 #include "IUpdate.h"
+#include "IRender.h"
 
 namespace Engine
 {
 	class Component;
 	class Scene;
-	class GameObject : public IUpdate
+	class GameObject : public IUpdate, public IRender
 	{
 	public:
 		/* =============================================================
@@ -23,7 +24,8 @@ namespace Engine
 		void RemoveComponent						( Component*  );
 		void AddChild								( GameObject* );
 		void RemoveChild							( GameObject* );
-		void Update									( float deltaTime );
+		void virtual Update							( float deltaTime );
+		void virtual Render							( );
 
 		/* =============================================================
 		* INLINE FUNCTIONS

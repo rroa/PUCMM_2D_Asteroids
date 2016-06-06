@@ -31,6 +31,8 @@ namespace Asteroids
 		void ChangeShip					( );
 		Asteroids::Bullet* Shoot();
 	private:
+		void DrawCircle(float cx, float cy, float r, int num_segments);
+		void DrawAABB(float cx, float cy, float r);
 		/* =============================================================
 		* MEMBERS
 		* ============================================================= */

@@ -5,9 +5,8 @@
 
 namespace Engine
 {
-	class Vector2
+	struct Vector2
 	{
-	public:
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
@@ -31,7 +30,7 @@ namespace Engine
 		Vector2& operator/=			( const Vector2& rhs );
 		Vector2 operator+			( const Vector2& rhs );
 		Vector2 operator-			( const Vector2& rhs );
-		Vector2 operator-			();
+		Vector2 operator-			( );
 		Vector2 operator*			( const Vector2& rhs );
 		Vector2 operator/			( const Vector2& rhs );
 		bool operator==				( const Vector2& rhs );
@@ -51,5 +50,5 @@ namespace Engine
 		float						length;
 	};
 }
- 
+
 #endif // !VECTOR2_HPP

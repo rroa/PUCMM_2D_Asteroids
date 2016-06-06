@@ -36,6 +36,7 @@ namespace Asteroids
 		void Render						( ) override;
 		AsteroidSize::Size GetSize		( );
 	private:
+		void DrawCircle(float cx, float cy, float r, int num_segments);
 		std::vector<Engine::Vector2>    m_points;
 		AsteroidSize::Size				m_size;
 		int								m_sizeFactor;

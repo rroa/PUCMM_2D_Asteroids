@@ -72,82 +72,193 @@ namespace Asteroids
 		case 1:
 			// Millennium Falcon
 			//
-			m_points.push_back(Engine::Vector2(0.0f, 20.0f));
-			m_points.push_back(Engine::Vector2(4.0f, 20.0f));
-			m_points.push_back(Engine::Vector2(4.0f, 44.0f));
-			m_points.push_back(Engine::Vector2(10.0f, 44.0f));
-			m_points.push_back(Engine::Vector2(12.0f, 40.0f));
-			m_points.push_back(Engine::Vector2(16.0f, 32.0f));
-			m_points.push_back(Engine::Vector2(20.0f, 24.0f));
-			m_points.push_back(Engine::Vector2(20.0f, 20.0f));
-			m_points.push_back(Engine::Vector2(22.0f, 24.0f));
-			m_points.push_back(Engine::Vector2(24.0f, 28.0f));
-			m_points.push_back(Engine::Vector2(28.0f, 28.0f));
-			m_points.push_back(Engine::Vector2(28.0f, 12.0f));
-			m_points.push_back(Engine::Vector2(24.0f, 12.0f));
-			m_points.push_back(Engine::Vector2(28.0f, 4.0f));
-			m_points.push_back(Engine::Vector2(28.0f, -8.0f));
-			m_points.push_back(Engine::Vector2(24.0f, -16.0f));
-			m_points.push_back(Engine::Vector2(20.0f, -20.0f));
-			m_points.push_back(Engine::Vector2(20.0f, -24.0f));
-			m_points.push_back(Engine::Vector2(12.0f, -28.0f));
-			m_points.push_back(Engine::Vector2(4.0f, -32.0f));
-			m_points.push_back(Engine::Vector2(-4.0f, -32.0f));
-			m_points.push_back(Engine::Vector2(-12.0f, -28.0f));
-			m_points.push_back(Engine::Vector2(-20.0f, -24.0f));
-			m_points.push_back(Engine::Vector2(-20.0f, -20.0f));
-			m_points.push_back(Engine::Vector2(-24.0f, -16.0f));
-			m_points.push_back(Engine::Vector2(-28.0f, -8.0f));
-			m_points.push_back(Engine::Vector2(-28.0f, 4.0f));
-			m_points.push_back(Engine::Vector2(-24.0f, 12.0f));
-			m_points.push_back(Engine::Vector2(-20.0f, 20.0f));
-			m_points.push_back(Engine::Vector2(-20.0f, 24.0f));
-			m_points.push_back(Engine::Vector2(-16.0f, 32.0f));
-			m_points.push_back(Engine::Vector2(-12.0f, 40.0f));
-			m_points.push_back(Engine::Vector2(-10.0f, 44.0f));
-			m_points.push_back(Engine::Vector2(-4.0f, 44.0f));
-			m_points.push_back(Engine::Vector2(-4.0f, 20.0f));
+			m_points.push_back(Engine::Vector2(0.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(3.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(3.0f, 1.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 1.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(3.0f, 25.0f));
+			m_points.push_back(Engine::Vector2(3.0f, 31.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 32.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 35.0f));
+			m_points.push_back(Engine::Vector2(6.0f, 35.0f));
+			m_points.push_back(Engine::Vector2(17.0f, 12.0f));
+			m_points.push_back(Engine::Vector2(18.0f, 9.0f));
+			m_points.push_back(Engine::Vector2(7.0f, 1.0f));
+			m_points.push_back(Engine::Vector2(8.0f, 0.0f));
+			m_points.push_back(Engine::Vector2(19.0f, 8.0f));
+			m_points.push_back(Engine::Vector2(19.0f, 12.0f));
+			m_points.push_back(Engine::Vector2(21.0f, 16.0f));
+			m_points.push_back(Engine::Vector2(24.0f, 16.0f));
+			m_points.push_back(Engine::Vector2(26.0f, 12.0f));
+			m_points.push_back(Engine::Vector2(26.0f, 5.0f));
+			m_points.push_back(Engine::Vector2(23.0f, 3.0f));
+			m_points.push_back(Engine::Vector2(24.0f, 1.0f));
+			m_points.push_back(Engine::Vector2(25.0f, -1.0f));
+			m_points.push_back(Engine::Vector2(25.0f, -3.0f));
+			m_points.push_back(Engine::Vector2(22.0f, -5.0f));
+			m_points.push_back(Engine::Vector2(8.0f, -5.0f));
+			m_points.push_back(Engine::Vector2(7.0f, -3.0f));
+			m_points.push_back(Engine::Vector2(5.0f, -1.0f));
+			m_points.push_back(Engine::Vector2(4.0f, -2.0f));
+			m_points.push_back(Engine::Vector2(6.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(7.0f, -6.0f));
+			m_points.push_back(Engine::Vector2(22.0f, -6.0f));
+			m_points.push_back(Engine::Vector2(25.0f, -7.0f));
+			m_points.push_back(Engine::Vector2(25.0f, -9.0f));
+			m_points.push_back(Engine::Vector2(22.0f, -11.0f));
+			m_points.push_back(Engine::Vector2(7.0f, -11.0f));
+			m_points.push_back(Engine::Vector2(5.0f, -13.0f));
+			m_points.push_back(Engine::Vector2(3.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(4.0f, -15.0f));
+			m_points.push_back(Engine::Vector2(6.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(8.0f, -12.0f));
+			m_points.push_back(Engine::Vector2(22.0f, -12.0f));
+			m_points.push_back(Engine::Vector2(26.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(25.0f, -17.0f));
+			m_points.push_back(Engine::Vector2(23.0f, -21.0f));
+			m_points.push_back(Engine::Vector2(21.0f, -24.0f));
+			m_points.push_back(Engine::Vector2(19.0f, -27.0f));
+			m_points.push_back(Engine::Vector2(18.0f, -25.0f));
+			m_points.push_back(Engine::Vector2(9.0f, -17.0f));
+			m_points.push_back(Engine::Vector2(8.0f, -18.0f));
+			m_points.push_back(Engine::Vector2(17.0f, -26.0f));
+			m_points.push_back(Engine::Vector2(17.0f, -29.0f));
+			m_points.push_back(Engine::Vector2(15.0f, -31.0f));
+			m_points.push_back(Engine::Vector2(12.0f, -33.0f));
+			m_points.push_back(Engine::Vector2(6.0f, -35.0f));
+			m_points.push_back(Engine::Vector2(0.0f, -36.0f));
+			m_points.push_back(Engine::Vector2(-6.0f, -35.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, -33.0f));
+			m_points.push_back(Engine::Vector2(-15.0f, -31.0f));
+			m_points.push_back(Engine::Vector2(-17.0f, -29.0f));
+			m_points.push_back(Engine::Vector2(-17.0f, -26.0f));
+			m_points.push_back(Engine::Vector2(-8.0f, -18.0f));
+			m_points.push_back(Engine::Vector2(-9.0f, -17.0f));
+			m_points.push_back(Engine::Vector2(-18.0f, -25.0f));
+			m_points.push_back(Engine::Vector2(-19.0f, -27.0f));
+			m_points.push_back(Engine::Vector2(-21.0f, -24.0f));
+			m_points.push_back(Engine::Vector2(-23.0f, -21.0f));
+			m_points.push_back(Engine::Vector2(-25.0f, -17.0f));
+			m_points.push_back(Engine::Vector2(-26.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(-22.0f, -12.0f));
+			m_points.push_back(Engine::Vector2(-8.0f, -12.0f));
+			m_points.push_back(Engine::Vector2(-6.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, -15.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(-5.0f, -13.0f));
+			m_points.push_back(Engine::Vector2(-7.0f, -11.0f));
+			m_points.push_back(Engine::Vector2(-22.0f, -11.0f));
+			m_points.push_back(Engine::Vector2(-25.0f, -9.0f));
+			m_points.push_back(Engine::Vector2(-25.0f, -7.0f));
+			m_points.push_back(Engine::Vector2(-22.0f, -6.0f));
+			m_points.push_back(Engine::Vector2(-7.0f, -6.0f));
+			m_points.push_back(Engine::Vector2(-6.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, -2.0f));
+			m_points.push_back(Engine::Vector2(-5.0f, -1.0f));
+			m_points.push_back(Engine::Vector2(-7.0f, -3.0f));
+			m_points.push_back(Engine::Vector2(-8.0f, -5.0f));
+			m_points.push_back(Engine::Vector2(-22.0f, -5.0f));
+			m_points.push_back(Engine::Vector2(-25.0f, -3.0f));
+			m_points.push_back(Engine::Vector2(-25.0f, -1.0f));
+			m_points.push_back(Engine::Vector2(-24.0f, 1.0f));
+			m_points.push_back(Engine::Vector2(-23.0f, 3.0f));
+			m_points.push_back(Engine::Vector2(-19.0f, 8.0f));
+			m_points.push_back(Engine::Vector2(-8.0f, 0.0f));
+			m_points.push_back(Engine::Vector2(-7.0f, 1.0f));
+			m_points.push_back(Engine::Vector2(-18.0f, 9.0f));
+			m_points.push_back(Engine::Vector2(-17.0f, 12.0f));
+			m_points.push_back(Engine::Vector2(-6.0f, 35.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 35.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 32.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, 31.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, 25.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 1.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, 1.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, 23.0f));
 			break;
 		case 2:
 			// USS Enterprise
 			//
-			m_points.push_back(Engine::Vector2(0.0f, 40.0f));
-			m_points.push_back(Engine::Vector2(8.0f, 40.0f));
-			m_points.push_back(Engine::Vector2(12.0f, 36.0f));
-			m_points.push_back(Engine::Vector2(20.0f, 28.0f));
-			m_points.push_back(Engine::Vector2(22.0f, 24.0f));
-			m_points.push_back(Engine::Vector2(24.0f, 20.0f));
-			m_points.push_back(Engine::Vector2(24.0f, 16.0f));
-			m_points.push_back(Engine::Vector2(20.0f, 8.0f));
-			m_points.push_back(Engine::Vector2(16.0f, 0.0f));
-			m_points.push_back(Engine::Vector2(12.0f, -4.0f));
-			m_points.push_back(Engine::Vector2(12.0f, -12.0f));
-			m_points.push_back(Engine::Vector2(18.0f, -16.0f));
-			m_points.push_back(Engine::Vector2(18.0f, -4.0f));
-			m_points.push_back(Engine::Vector2(24.0f, -4.0f));
-			m_points.push_back(Engine::Vector2(24.0f, -40.0f));
-			m_points.push_back(Engine::Vector2(18.0f, -40.0f));
-			m_points.push_back(Engine::Vector2(18.0f, -24.0f));
-			m_points.push_back(Engine::Vector2(12.0f, -20.0f));
-			m_points.push_back(Engine::Vector2(4.0f, -14.0f));
-			m_points.push_back(Engine::Vector2(-4.0f, -14.0f));
-			m_points.push_back(Engine::Vector2(-12.0f, -20.0f));
-			m_points.push_back(Engine::Vector2(-18.0f, -24.0f));
-			m_points.push_back(Engine::Vector2(-18.0f, -40.0f));
-			m_points.push_back(Engine::Vector2(-24.0f, -40.0f));
-			m_points.push_back(Engine::Vector2(-24.0f, -4.0f));
-			m_points.push_back(Engine::Vector2(-18.0f, -4.0f));
-			m_points.push_back(Engine::Vector2(-18.0f, -16.0f));
-			m_points.push_back(Engine::Vector2(-12.0f, -12.0f));
-			m_points.push_back(Engine::Vector2(-12.0f, -4.0f));
-			m_points.push_back(Engine::Vector2(-16.0f, 0.0f));
-			m_points.push_back(Engine::Vector2(-20.0f, 8.0f));
-			m_points.push_back(Engine::Vector2(-24.0f, 16.0f));
-			m_points.push_back(Engine::Vector2(-24.0f, 20.0f));
-			m_points.push_back(Engine::Vector2(-22.0f, 24.0f));
-			m_points.push_back(Engine::Vector2(-20.0f, 28.0f));
-			m_points.push_back(Engine::Vector2(-12.0f, 36.0f));
-			m_points.push_back(Engine::Vector2(-8.0f, 40.0f));
+			m_points.push_back(Engine::Vector2(0.0f, 35.0f));
+			m_points.push_back(Engine::Vector2(5.0f, 34.0f));
+			m_points.push_back(Engine::Vector2(9.0f, 31.0f));
+			m_points.push_back(Engine::Vector2(12.0f, 27.0f));
+			m_points.push_back(Engine::Vector2(13.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(12.0f, 18.0f));
+			m_points.push_back(Engine::Vector2(9.0f, 13.0f));
+			m_points.push_back(Engine::Vector2(9.0f, 16.0f));
+			m_points.push_back(Engine::Vector2(8.0f, 16.0f));
+			m_points.push_back(Engine::Vector2(8.0f, 10.0f));
+			m_points.push_back(Engine::Vector2(5.0f, 9.0f));
+			m_points.push_back(Engine::Vector2(5.0f, 13.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 13.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 21.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 22.0f));
+			m_points.push_back(Engine::Vector2(3.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(2.0f, 24.0f));
+			m_points.push_back(Engine::Vector2(2.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(3.0f, 22.0f));
+			m_points.push_back(Engine::Vector2(3.0f, 21.0f));
+			m_points.push_back(Engine::Vector2(3.0f, 10.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 10.0f));
+			m_points.push_back(Engine::Vector2(5.0f, 7.0f));
+			m_points.push_back(Engine::Vector2(4.0f, 2.0f));
+			m_points.push_back(Engine::Vector2(4.0f, -3.0f));
+			m_points.push_back(Engine::Vector2(2.0f, -3.0f));
+			m_points.push_back(Engine::Vector2(2.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(7.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(7.0f, 2.0f));
+			m_points.push_back(Engine::Vector2(9.0f, 4.0f));
+			m_points.push_back(Engine::Vector2(11.0f, 2.0f));
+			m_points.push_back(Engine::Vector2(11.0f, -23.0f));
+			m_points.push_back(Engine::Vector2(9.0f, -29.0f));
+			m_points.push_back(Engine::Vector2(7.0f, -23.0f));
+			m_points.push_back(Engine::Vector2(7.0f, -7.0f));
+			m_points.push_back(Engine::Vector2(2.0f, -7.0f));
+			m_points.push_back(Engine::Vector2(2.0f, -8.0f));
+			m_points.push_back(Engine::Vector2(4.0f, -8.0f));
+			m_points.push_back(Engine::Vector2(3.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(0.0f, -20.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, -14.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, -8.0f));
+			m_points.push_back(Engine::Vector2(-2.0f, -8.0f));
+			m_points.push_back(Engine::Vector2(-2.0f, -7.0f));
+			m_points.push_back(Engine::Vector2(-7.0f, -7.0f));
+			m_points.push_back(Engine::Vector2(-7.0f, -23.0f));
+			m_points.push_back(Engine::Vector2(-9.0f, -29.0f));
+			m_points.push_back(Engine::Vector2(-11.0f, -23.0f));
+			m_points.push_back(Engine::Vector2(-11.0f, 2.0f));
+			m_points.push_back(Engine::Vector2(-9.0f, 4.0f));
+			m_points.push_back(Engine::Vector2(-7.0f, 2.0f));
+			m_points.push_back(Engine::Vector2(-7.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(-2.0f, -4.0f));
+			m_points.push_back(Engine::Vector2(-2.0f, -3.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, -3.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 2.0f));
+			m_points.push_back(Engine::Vector2(-5.0f, 7.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 10.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, 10.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, 21.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, 22.0f));
+			m_points.push_back(Engine::Vector2(-2.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(-2.0f, 24.0f));
+			m_points.push_back(Engine::Vector2(-3.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 22.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 21.0f));
+			m_points.push_back(Engine::Vector2(-4.0f, 13.0f));
+			m_points.push_back(Engine::Vector2(-5.0f, 13.0f));
+			m_points.push_back(Engine::Vector2(-5.0f, 9.0f));
+			m_points.push_back(Engine::Vector2(-8.0f, 10.0f));
+			m_points.push_back(Engine::Vector2(-8.0f, 16.0f));
+			m_points.push_back(Engine::Vector2(-9.0f, 16.0f));
+			m_points.push_back(Engine::Vector2(-9.0f, 13.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, 18.0f));
+			m_points.push_back(Engine::Vector2(-13.0f, 23.0f));
+			m_points.push_back(Engine::Vector2(-12.0f, 27.0f));
+			m_points.push_back(Engine::Vector2(-9.0f, 31.0f));
+			m_points.push_back(Engine::Vector2(-5.0f, 34.0f));
 			break;
 		default:
 			// Original
@@ -186,13 +297,65 @@ namespace Asteroids
 		glRotatef(m_angle, 0.0f, 0.0f, 1.0f);
 
 		glBegin(GL_LINE_LOOP);
-		
+		glColor3f(1.0f, 1.0f, 1.0f);
 		std::vector<Engine::Vector2>::iterator it = m_points.begin();
 		for ( ;it != m_points.end(); ++it)
 		{
 			glVertex2f((*it).x, (*it).y);
 		}
 		
+		glEnd();
+
+		glLoadIdentity();
+		/*DrawCircle(m_position.x, m_position.y, m_radius + 15, 16);*/
+		glColor3f(1.0f, 0.f, 0.f);
+		DrawAABB(m_position.x, m_position.y, m_radius + 6);
+		glColor3f(1.0f, 1.0f, 1.0f);
+	}
+
+	void Player::DrawAABB(float cx, float cy, float r)
+	{
+		glBegin(GL_LINE_LOOP); // Start drawing a quad primitive  
+			glVertex3f((cx - r), (cy + r), 0.0f); // The bottom left corner  			
+			glVertex3f((cx - r), (cy - r), 0.0f); // The top left corner  					
+			glVertex3f(cx + r, cy - r, 0.0f); // The bottom right corner
+			glVertex3f(cx + r, cy + r, 0.0f); // The top right corner  		
+		glEnd();
+	}
+
+	void Player::DrawCircle(float cx, float cy, float r, int num_segments)
+	{
+		float theta = 2 * 3.1415926 / float(num_segments);
+		float tangetial_factor = tanf(theta);//calculate the tangential factor 
+
+		float radial_factor = cosf(theta);//calculate the radial factor 
+
+		float x = r;//we start at angle = 0 
+
+		float y = 0;
+
+		glBegin(GL_LINE_LOOP);
+		for (int ii = 0; ii < num_segments; ii++)
+		{
+			glVertex2f(x + cx, y + cy);//output vertex 
+
+									   //calculate the tangential vector 
+									   //remember, the radial vector is (x, y) 
+									   //to get the tangential vector we flip those coordinates and negate one of them 
+
+			float tx = -y;
+			float ty = x;
+
+			//add the tangential vector 
+
+			x += tx * tangetial_factor;
+			y += ty * tangetial_factor;
+
+			//correct using the radial factor 
+
+			x *= radial_factor;
+			y *= radial_factor;
+		}
 		glEnd();
 	}
 

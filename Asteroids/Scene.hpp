@@ -2,16 +2,34 @@
 #ifndef SCENE_HPP
 #define SCENE_HPP
 
+#include <vector>
+
+//
 #include "Vector3.hpp"
+#include "IUpdate.h"
+#include "IRender.h"
+#include "GameObject.hpp"
 
 namespace Engine
 {
-	class Scene
+	class Scene: public IUpdate, public IRender
 	{
 	public:
-		Scene(Vector3 background);
+		/* =============================================================
+		* PUBLIC FUNCTIONS
+		* ============================================================= */
+		Scene						( Vector3 background );
+		void virtual Update			( float deltaTime );
+		void virtual Render			( );
+		void AddGameObject			( GameObject* go );
+		void RemoveGameObject		( GameObject* go );
 	private:
-		Vector3 m_background;
+		/* =============================================================
+		* MEMBERS
+		* ============================================================= */
+		Vector3						m_background;
+		std::vector<GameObject*>	m_gameObjects;
+
 	};
 }
 

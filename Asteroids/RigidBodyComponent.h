@@ -7,16 +7,17 @@
 
 namespace Engine
 {
-	class PhysicsComponent : public Component
+	class RigidBodyComponent : public Component
 	{
 	public:
 		/* =============================================================
 		* PUBLIC FUNCTIONS
 		* ============================================================= */
-		PhysicsComponent			( );
-		PhysicsComponent			( Vector2 gravity, float mass = 1.0f, float dragFactor = 1.0f );
-		~PhysicsComponent			( );
-		void Update					( float deltaTime );
+		RigidBodyComponent			( );
+		RigidBodyComponent			( Vector2 gravity, Vector2 position, float mass = 1.0f, float dragFactor = 1.0f );
+		~RigidBodyComponent			( );
+		void Update					( float deltaTime ) override;
+		void AddForce				( Vector2 force );
 
 		/* =============================================================
 		* INLINE FUNCTIONS
@@ -28,7 +29,9 @@ namespace Engine
 		* MEMBERS
 		* ============================================================= */
 		float						m_mass;
-		float						m_dragFactor;
+		float						m_drag;
+		Vector2						m_position;
+		Vector2						m_force;
 		Vector2						m_gravity;
 		Vector2						m_velocity;
 	};
