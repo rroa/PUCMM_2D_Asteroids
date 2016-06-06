@@ -9,10 +9,7 @@
 
 // 
 #include "App.hpp"
-#include "GameObject.hpp"
-#include "Component.hpp"
-#include "RigidBodyComponent.hpp"
-#include "TransformationComponent.hpp"
+#include "Game.hpp"
 
 const int WIDTH = 1136;
 const int HEIGHT = 640;
@@ -38,6 +35,10 @@ int main(int argc, char* argv[])
 		std::cout << "Game Init error!\n";
 		return -1;
 	}
+
+	Asteroids::Game* game = 
+		new Asteroids::Game(app, 
+							Engine::Vector3(0.1f, 0.1f, 0.1f));
 
 	// Execute game
 	//

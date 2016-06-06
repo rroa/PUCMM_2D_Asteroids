@@ -83,6 +83,9 @@
     <ClCompile Include="InputSystem.cpp">
       <Filter>Engine\Systems</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Game\Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Entity.hpp">
@@ -144,6 +147,9 @@
     </ClInclude>
     <ClInclude Include="InputSystem.hpp">
       <Filter>Engine\Systems</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.hpp">
+      <Filter>Game\Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -9,9 +9,6 @@
 
 //
 #include "InputSystem.hpp"
-#include "Player.hpp"
-#include "World.hpp"
-#include "Ship.hpp"
 
 namespace Engine
 {
@@ -34,11 +31,6 @@ namespace Engine
 		m_entities.push_back(m_player);
 		m_dimensions[0] = width;
 		m_dimensions[1] = height;
-
-		m_currentScene = new Scene(Vector3(0.1f, 0.1f, 0.14f));
-		Asteroids::World* world = new Asteroids::World(width, height);
-		world->AddChild(new Asteroids::Ship());
-		m_currentScene->AddGameObject(world);
 	}
 
 	App::~App()

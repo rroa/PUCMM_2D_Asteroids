@@ -1,6 +1,6 @@
 #pragma once
-#ifndef GAME_HPP
-#define GAME_HPP
+#ifndef APP_HPP
+#define APP_HPP
 
 // C++ STL
 #include <string>
@@ -87,4 +87,4 @@ namespace Engine
 		
 	};
 }
-#endif /* GAME_HPP */
+#endif /* APP_HPP */

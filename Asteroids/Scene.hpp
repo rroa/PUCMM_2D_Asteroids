@@ -23,7 +23,7 @@ namespace Engine
 		void virtual Render			( );
 		void AddGameObject			( GameObject* go );
 		void RemoveGameObject		( GameObject* go );
-	private:
+	protected:
 		/* =============================================================
 		* MEMBERS
 		* ============================================================= */
