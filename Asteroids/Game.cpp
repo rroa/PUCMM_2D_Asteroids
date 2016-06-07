@@ -134,6 +134,16 @@ namespace Engine
 		}
 	}
 
+	void Game::CreateAlien()
+	{
+		Asteroids::Alien* pAlien = new Asteroids::Alien();
+		m_entities.push_back(pAlien);
+
+		m_alien.push_back(pAlien);
+	
+		pAlien->ApplyImpulse(Engine::Vector2(50, 50));
+	}
+
 	void Game::CreateBullet()
 	{
 		Asteroids::Bullet* pBullet = m_player->Shoot();	
@@ -175,6 +185,7 @@ namespace Engine
 		std::cout << "==============================================\n" << std::endl;
 
 		CreateAsteroid(Asteroids::Asteroid::AsteroidSize::BIG, m_level);
+		CreateAlien();
 	}
 
 	void Game::UpdateScore(int delta)
@@ -205,6 +216,31 @@ namespace Engine
 						}
   					}
 				}
+			}
+		}
+
+		// Check for alien collision
+		for (std::list< Asteroids::Alien* >::iterator alien = m_alien.begin(); alien != m_alien.end(); ++alien)
+		{
+			if (((*alien)->CouldCollide() && m_player->CouldCollide()))
+			{
+
+				if (m_player->DetectCollision(*alien))
+				{
+
+				}
+				for (std::list< Asteroids::Bullet* >::iterator bullet = m_bullets.begin(); bullet != m_bullets.end(); ++bullet)
+				{
+					if ((*bullet)->CouldCollide() && (*alien)->CouldCollide())
+					{
+						if ((*alien)->DetectCollision((*bullet)))
+						{
+							m_score += 3;
+							std::cout << "Alien killed, current score is: " << m_score << std::endl;
+						}
+					}
+				}
+
 			}
 		}
 		if (m_asteroids.empty()) {
@@ -282,8 +318,24 @@ namespace Engine
 	{
 		double startTime = m_timer->GetElapsedTimeInSeconds();
 
+		// Updating Alien(s)
+		if (m_player)
+		{
+			std::list< Asteroids::Alien* >::iterator  p_alien = m_alien.begin();
+
+			while (p_alien != m_alien.end())
+			{
+				(*p_alien)->Update(DESIRED_FRAME_TIME, m_width, m_height, m_player->GetX(), m_player->GetY());
+				++p_alien;
+			}
+			// (*p_alien)->Update(DESIRED_FRAME_TIME, m_width, m_height, m_player->GetX(), m_player->GetY());
+			// (*p_alien)->DetectCollision(m_player);
+			// (*p_alien)->Update(DESIRED_FRAME_TIME, m_width, m_height, m_player->GetX(), m_player->GetY());
+		}
+
 		// Updating the entities
 		//
+
 		std::list< Asteroids::Entity* >::iterator ait = m_entities.begin();
 		while (ait != m_entities.end())
 		{

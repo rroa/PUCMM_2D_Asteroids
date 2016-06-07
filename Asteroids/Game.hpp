@@ -12,6 +12,7 @@
 #include "Asteroid.hpp"
 #include "Bullet.hpp"
 #include "TimeManager.hpp"
+#include "Alien.hpp"
 
 namespace Engine
 {
@@ -64,6 +65,7 @@ namespace Engine
 		void RespawnPlayer					( );
 		void UpdateScore					( int delta );
 		void IncreaseLevel					( int level);
+		void CreateAlien					( );
 
 
 		/* =============================================================
@@ -84,6 +86,7 @@ namespace Engine
 		std::list< Asteroids::Bullet* >		m_bullets;
 		std::list< Asteroids::Entity* >     m_entities;
 		Engine::TimeManager*				m_timer;
+		std::list < Asteroids::Alien* >     m_alien;
 
 	};
 }
