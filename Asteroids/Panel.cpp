@@ -81,11 +81,24 @@ namespace Asteroids
 			break;
 		case 1:
 			glBegin(GL_LINE_STRIP);
-			glVertex2f(-m_position.x + 10.0, m_position.y - 15.0);
+			glVertex2f(-m_position.x + 12.5, m_position.y - 12.5);
 			glVertex2f(-m_position.x + 15.0, m_position.y - 10.0);
+			glVertex2f(-m_position.x + 17.5, m_position.y - 12.5);
+			glVertex2f(-m_position.x + 20.0, m_position.y - 15.0);
+			glVertex2f(-m_position.x + 15.0, m_position.y - 15.0);
+			glVertex2f(-m_position.x + 20.0, m_position.y - 17.5);
 			glVertex2f(-m_position.x + 15.0, m_position.y - 20.0);
+			glVertex2f(-m_position.x + 12.5, m_position.y - 12.5);
 			break;
 		case 2:
+			glBegin(GL_LINE_STRIP);
+			glVertex2f(-m_position.x + 10.0, m_position.y - 15.0);
+			glVertex2f(-m_position.x + 12.5, m_position.y - 12.5);
+			glVertex2f(-m_position.x + 15.0, m_position.y - 10.0);
+			glVertex2f(-m_position.x + 17.5, m_position.y - 12.5);
+			glVertex2f(-m_position.x + 20.0, m_position.y - 15.0);
+			glVertex2f(-m_position.x + 10.0, m_position.y - 22.5);
+			glVertex2f(-m_position.x + 20.0, m_position.y - 22.5);
 			break;
 		case 3:
 			break;
