@@ -2,17 +2,14 @@
 #include <SDL2/SDL_opengl.h>
 #include <cmath>
 
-#include <iostream>
-
 namespace Asteroids
 {
 	const float DRAG_FORCE = 0.999f;
-	const float MAX_VELOCITY = 250.0f;
-	const float THRUST = 3.5;
+	const float MAX_VELOCITY = 200.0f;
+	const float THRUST = 3.5f;
 	const float ANGLE_OFFSET = 90.f;
 	const float BULLET_SPEED = 250.f;
 	const float PI = 3.141592653f;
-	// int Player::m_currentShip = 1;
 	int Player::m_currentShip = 0;
 
 	/*
@@ -261,6 +258,23 @@ namespace Asteroids
 			m_points.push_back(Engine::Vector2(-12.0f, 27.0f));
 			m_points.push_back(Engine::Vector2(-9.0f, 31.0f));
 			m_points.push_back(Engine::Vector2(-5.0f, 34.0f));
+			break;
+		case 3:
+			// Not in use
+			m_points.push_back(Engine::Vector2(0, 0));
+			m_points.push_back(Engine::Vector2(-13, 0));
+			m_points.push_back(Engine::Vector2(-25, -10));
+			m_points.push_back(Engine::Vector2(-30, 0));
+			m_points.push_back(Engine::Vector2(-34, -5));
+			m_points.push_back(Engine::Vector2(-34, 5));
+			m_points.push_back(Engine::Vector2(-12, 30));
+			m_points.push_back(Engine::Vector2(0, 30));
+			m_points.push_back(Engine::Vector2(12, 30));
+			m_points.push_back(Engine::Vector2(34, 5));
+			m_points.push_back(Engine::Vector2(34, -5));
+			m_points.push_back(Engine::Vector2(30, 0));
+			m_points.push_back(Engine::Vector2(25, -10));
+			m_points.push_back(Engine::Vector2(13, 0));
 			break;
 		default:
 			// Original
