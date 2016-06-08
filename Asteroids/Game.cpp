@@ -200,8 +200,11 @@ namespace Engine
 
 	void Game::RespawnPlayer()
 	{
+		if (m_player != nullptr) return;
+
 		m_player = new Asteroids::Player();
 		m_entities.push_back(m_player);
+		
 	}
 
 	void Game::OnKeyDown(SDL_KeyboardEvent keyBoardEvent)
