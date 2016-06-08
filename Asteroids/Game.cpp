@@ -319,18 +319,17 @@ namespace Engine
 		double startTime = m_timer->GetElapsedTimeInSeconds();
 
 		// Updating Alien(s)
-		if (m_player)
+		if (m_player && !m_alien.empty())
 		{
 			std::list< Asteroids::Alien* >::iterator  p_alien = m_alien.begin();
-
 			while (p_alien != m_alien.end())
 			{
 				(*p_alien)->Update(DESIRED_FRAME_TIME, m_width, m_height, m_player->GetX(), m_player->GetY());
+				// Shoot bullets to player (work in progress)
+				// Asteroids::Bullet* pBullet = (*p_alien)->Shoot(m_player->GetX(), m_player->GetY());
+				// m_entities.push_back(pBullet);
 				++p_alien;
 			}
-			// (*p_alien)->Update(DESIRED_FRAME_TIME, m_width, m_height, m_player->GetX(), m_player->GetY());
-			// (*p_alien)->DetectCollision(m_player);
-			// (*p_alien)->Update(DESIRED_FRAME_TIME, m_width, m_height, m_player->GetX(), m_player->GetY());
 		}
 
 		// Updating the entities
@@ -411,6 +410,10 @@ namespace Engine
 		//
 		auto bulletsResult = std::find(m_bullets.begin(), m_bullets.end(), entity);
 
+		// Retrieve alien from m_alien list
+		//
+		auto alienResult = std::find(m_alien.begin(), m_alien.end(), entity);
+
 		// Removing the allocated pointer
 		//
 		delete entity;
@@ -437,6 +440,11 @@ namespace Engine
 		if (m_bullets.size() > 0 && bulletsResult != m_bullets.end())
 		{
 			m_bullets.erase(bulletsResult);
+		}
+
+		if (m_alien.size() > 0 && alienResult != m_alien.end())
+		{
+			m_alien.erase(alienResult);
 		}
 	}
 
