@@ -16,35 +16,35 @@ You first need to install all the required tools in your environment (OPENGL and
 
 You can do that by performing the following commands:
 
-`sudo apt update`
+    sudo apt update
 
 ### INSTALL apt-file
 
 apt-file is a command line tool for searching files in packages for the APT package management system.
 
-`sudo apt install apt-file`
+    sudo apt install apt-file
 
-`sudo apt-file update`
+    sudo apt-file update
 
 ### INSTALL DEV TOOLS
-`sudo apt install build-essential`
+    sudo apt install build-essential
 
 ### INSTALL LibX libraries and MESA dev Libraries
-`sudo apt install libx11-dev`
+    sudo apt install libx11-dev
 
-`sudo apt install mesa-common-dev`
+    sudo apt install mesa-common-dev
 
-`sudo apt install libglu1-mesa-dev`
+    sudo apt install libglu1-mesa-dev
 
-`sudo apt install mesa-utils`
+    sudo apt install mesa-utils
 
 ### INSTALL GLEW
-`sudo apt install build-essential libxmu-dev libxi-dev libgl-dev libosmesa-dev git`
+    sudo apt install build-essential libxmu-dev libxi-dev libgl-dev libosmesa-dev git
 
-`sudo apt install libglew-dev`
+    sudo apt install libglew-dev
 
 ### INSTALL Library (SDL2, GLUT, etc...)
-`sudo apt install libsdl2-dev`
+    sudo apt install libsdl2-dev
 
 #Building for Mac
 
