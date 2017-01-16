@@ -30,6 +30,7 @@ namespace Engine
 		m_nUpdates(0),
 		m_score(0)
 	{
+		m_context = nullptr;
 		m_mainWindow = nullptr;
 		m_state = GameState::UNINITIALIZED;
 		m_player = new Asteroids::Player();
